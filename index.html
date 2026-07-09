@@ -120,7 +120,14 @@
             height: 100vh; overflow-y: auto; overflow-x: hidden;
             scroll-snap-type: y mandatory;
         }
-        @media (max-width: 768px) { .fullpage-wrapper { scroll-snap-type: none; } }
+        @media (max-width: 768px) {
+            .fullpage-wrapper { scroll-snap-type: none; }
+            .fade-up { transition-duration: 0.5s; }
+            .service-icon { transition-duration: 0.5s; transform-origin: center; }
+            .collage-box, .ppt-card, .showcase-card { transition-duration: 0.4s; }
+            .price-card { transition-duration: 0.4s; }
+            .step { transition-duration: 0.4s; }
+        }
 
         .section {
             min-height: 100vh; height: auto; scroll-snap-align: start;
@@ -493,6 +500,7 @@
             font-size: clamp(24px,2.6vw,31px); margin: 0 auto clamp(16px,2vw,24px);
             opacity: 0; transform: scale(0.3) translateY(40px) rotate(-10deg);
             transition: opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            will-change: opacity, transform;
         }
         .service-icon.animate-in {
             opacity: 1; transform: scale(1) translateY(0) rotate(0deg);
@@ -1394,7 +1402,16 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
         });
     }
     wrapper.addEventListener('scroll', updateActive);
-    window.addEventListener('load', () => setTimeout(updateActive, 100));
+    window.addEventListener('load', () => {
+        updateActive();
+        setTimeout(updateActive, 50);
+        setTimeout(updateActive, 200);
+        setTimeout(updateActive, 500);
+    });
+    // 备用: 监听可见性变化
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) setTimeout(updateActive, 100);
+    });
 
     dots.forEach(dot => {
         dot.addEventListener('click', () => {
@@ -1438,7 +1455,7 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
                 animObserver.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.05, rootMargin: '0px 0px -10px 0px' });
 
     document.querySelectorAll(
         '.service-icon, .service-card h3, .service-card p, ' +
@@ -1446,6 +1463,14 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
     ).forEach(el => {
         animObserver.observe(el);
     });
+
+    // ─── 安全网: 移动端2秒后强制显示所有隐藏元素 ───
+    setTimeout(() => {
+        document.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible'));
+        document.querySelectorAll('.service-icon, .service-card h3, .service-card p, ' +
+            '.collage-box, .ppt-card, .showcase-card, .price-card, .step, .qr-box, .contact-row-item'
+        ).forEach(el => el.classList.add('animate-in'));
+    }, 2000);
 
     function closeMenu() {
         hamburger.classList.remove('active');
