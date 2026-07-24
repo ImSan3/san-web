@@ -810,6 +810,28 @@
             .hero-desc { justify-content: center; }
         }
         @media (min-width: 901px) and (max-width: 1200px) { .hero-title { font-size: 48px; } .hero-right { flex: 0 0 320px; } }
+    
+        /* ─── Mobile: Peek Hint + Dot Pagination ─── */
+        @media (max-width: 900px) {
+            .pricing-grid {
+                position: relative;
+                mask-image: linear-gradient(to right, #000 85%, transparent 100%);
+                -webkit-mask-image: linear-gradient(to right, #000 85%, transparent 100%);
+            }
+            .pricing-grid::-webkit-scrollbar { display: none; }
+            .pricing-dots {
+                display: flex; justify-content: center; align-items: center; gap: 8px;
+                margin-top: 16px;
+            }
+            .pricing-dot {
+                width: 8px; height: 8px; border-radius: 50%;
+                background: rgba(19,93,205,.2); transition: all .3s ease; cursor: pointer;
+            }
+            .pricing-dot.active {
+                background: #135dcd; width: 24px; border-radius: 4px;
+            }
+        }
+        @media (min-width: 901px) { .pricing-dots { display: none; } }
     </style>
 </head>
 <body>
@@ -1273,6 +1295,11 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
                     <a class="price-btn price-btn-outline" onclick="document.getElementById('contactSection').scrollIntoView({behavior:'smooth'})">立即咨询</a>
                 </div>
             </div>
+                <div class="pricing-dots">
+                    <div class="pricing-dot active" data-index="0"></div>
+                    <div class="pricing-dot" data-index="1"></div>
+                    <div class="pricing-dot" data-index="2"></div>
+                </div>
             <p class="text-center fade-up" style="margin-top:24px;color:#6b7a8f;font-size:14px;">💡 价格根据需求难易程度浮动 · 硕士论文、数据分析等服务请咨询获取报价</p>
             <p class="text-center fade-up" style="margin-top:12px;color:#9aa0a6;font-size:12px;">📌 每年4-5月毕业答辩季，建议选择全包套餐确保服务体验</p>
         </div>
@@ -1630,6 +1657,27 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
         init();
         animate();
     })();
-</script>
+
+    // ─── Pricing dot pagination ───
+    (function() {
+        var pgrid = document.querySelector('.pricing-grid');
+        var pdots = document.querySelectorAll('.pricing-dot');
+        if (!pgrid || !pdots.length) return;
+        pgrid.addEventListener('scroll', function() {
+            var sl = this.scrollLeft;
+            var cw = this.querySelector('.price-card').offsetWidth + 16;
+            var idx = Math.round(sl / cw);
+            pdots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
+        });
+        pdots.forEach(function(dot) {
+            dot.addEventListener('click', function() {
+                var idx = parseInt(this.dataset.index);
+                var cw = pgrid.querySelector('.price-card').offsetWidth + 16;
+                pgrid.scrollTo({ left: idx * cw, behavior: 'smooth' });
+            });
+        });
+    })();
+
+    </script>
 </body>
 </html>
