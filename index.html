@@ -627,6 +627,36 @@
         .showcase-card-body h4 { font-size: clamp(14px,1.3vw,17px); font-weight: 700; color: #021c31; margin-bottom: 6px; }
         .showcase-card-body p { font-size: clamp(12px,1.1vw,14px); color: #6b7a8f; line-height: 1.6; margin: 0; }
 
+        /* ─── Testimonials wall (口碑) ─── */
+        .voices-head { text-align: center; }
+        .voices-head .label { font-size: 17px; letter-spacing: 5px; color: #5b9eff; font-weight: 700; }
+        .voices-head h2 { font-size: clamp(24px,3.4vw,34px); font-weight: 900; margin: 10px 0 10px; font-family: 'Didot', 'Times New Roman', serif; color: #021c31; }
+        .voices-head p { font-size: 17px; color: #6b7a8f; max-width: 760px; margin: 0 auto; line-height: 1.8; }
+        .voices-wall { column-width: 280px; column-gap: 14px; margin-top: clamp(28px,4vw,48px); }
+        .voice-card {
+            break-inside: avoid; margin: 0 0 14px; padding: 16px 18px 14px;
+            background: #fff; border: 1px solid #e5ecf6; border-radius: 14px;
+            box-shadow: 0 8px 30px rgba(5,77,136,.06);
+            transition: transform .2s, box-shadow .2s; color: #1c2b3e;
+        }
+        .voice-card:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(5,77,136,.12); }
+        .voice-stars { font-size: 13px; color: #fb8500; margin-bottom: 8px; }
+        .voice-text { font-size: 14px; line-height: 1.7; color: #1c2b3e; margin: 0 0 12px; }
+        .voice-tag {
+            display: inline-block; padding: 2px 9px; margin-bottom: 11px;
+            border-radius: 20px; background: #e8f0fe; color: #135dcd; font-size: 11px; font-weight: 600;
+        }
+        .voice-author { display: flex; align-items: center; gap: 9px; }
+        .voice-avatar {
+            width: 36px; height: 36px; border-radius: 50%; flex: 0 0 auto;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; font-weight: 700; color: #fff; overflow: hidden;
+        }
+        .voice-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
+        .voice-meta { display: flex; flex-direction: column; min-width: 0; }
+        .voice-name { font-size: 14px; font-weight: 700; color: #0a2540; }
+        .voice-handle { font-size: 13px; color: #8a97a8; }
+
         /* Lightbox */
         .lightbox {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -669,9 +699,9 @@
         @media (max-width: 900px) {
             .pricing-grid {
                 display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
-                gap: 16px; padding: 0 0 20px; -webkit-overflow-scrolling: touch;
+                gap: 14px; padding: 0 0 20px; -webkit-overflow-scrolling: touch;
             }
-            .pricing-grid .price-card { min-width: 82vw; scroll-snap-align: center; flex-shrink: 0; }
+            .pricing-grid .price-card { min-width: 63vw; scroll-snap-align: center; flex-shrink: 0; padding: 20px 16px; }
         }
         .price-card {
             background: #fff; border-radius: clamp(16px,2vw,24px);
@@ -712,6 +742,12 @@
         .price-btn-outline:hover { background: #e0e0e0; }
         .price-btn-primary { background: #fff; color: #0838c7; }
         .price-btn-primary:hover { opacity: .9; }
+        .price-card .plan-tag {
+            font-size: clamp(19px,2vw,24px); font-weight: 800;
+            color: #135dcd; margin: 16px 0 4px; line-height: 1.4;
+            font-family: 'Didot', 'Times New Roman', serif;
+        }
+        .price-card.featured .plan-tag { color: #fff; }
 
         /* ─── Process ─── */
         .process-steps { display: flex; justify-content: space-between; gap: 20px; margin-top: clamp(28px,4vw,48px); position: relative; }
@@ -844,9 +880,10 @@
             <a class="nav-link" data-target="0">首页</a>
             <a class="nav-link" data-target="1">服务项目</a>
             <a class="nav-link" data-target="2">案例展示</a>
-            <a class="nav-link" data-target="3">价格</a>
-            <a class="nav-link" data-target="4">流程</a>
-            <a class="nav-link" data-target="5">联系我</a>
+            <a class="nav-link" data-target="3">口碑</a>
+            <a class="nav-link" data-target="4">方案</a>
+            <a class="nav-link" data-target="5">流程</a>
+            <a class="nav-link" data-target="6">联系我</a>
             <a class="nav-cta" onclick="document.getElementById('contactSection').scrollIntoView({behavior:'smooth'})">立即咨询 →</a>
         </div>
         <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
@@ -857,9 +894,10 @@
     <a class="nav-link" data-target="0">首页</a>
     <a class="nav-link" data-target="1">服务项目</a>
     <a class="nav-link" data-target="2">案例展示</a>
-    <a class="nav-link" data-target="3">价格</a>
-    <a class="nav-link" data-target="4">流程</a>
-    <a class="nav-link" data-target="5">联系我</a>
+    <a class="nav-link" data-target="3">口碑</a>
+    <a class="nav-link" data-target="4">方案</a>
+    <a class="nav-link" data-target="5">流程</a>
+    <a class="nav-link" data-target="6">联系我</a>
     <a class="nav-cta" onclick="document.getElementById('contactSection').scrollIntoView({behavior:'smooth'})">立即咨询 →</a>
 </div>
 
@@ -870,6 +908,7 @@
     <div class="nav-dot" data-index="3"></div>
     <div class="nav-dot" data-index="4"></div>
     <div class="nav-dot" data-index="5"></div>
+    <div class="nav-dot" data-index="6"></div>
 </div>
 
 <!-- ═══ Floating CTA ═══ -->
@@ -1181,13 +1220,20 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
                 <div class="collage-box" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_861787d0-3d45-4768-e58f-dc08f8a4b49c.png?x-tos-process=image/resize,w_480" alt="案例合集16" onerror="this.outerHTML='<div class=\'collage-placeholder\'>📋 案例 136-144</div>'"><div class="collage-label">案例 136-144</div></div>
                 <div class="collage-box" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_c543c0e8-0487-4910-cad1-ae3ef4e15905.jpg?x-tos-process=image/resize,w_480" alt="案例合集17" onerror="this.outerHTML='<div class=\'collage-placeholder\'>📋 案例 145-153</div>'"><div class="collage-label">案例 145-153</div></div>
                 <div class="collage-box" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_4a464f59-f8b4-432d-9500-1c134f8895fb.png?x-tos-process=image/resize,w_480" alt="案例合集18" onerror="this.outerHTML='<div class=\'collage-placeholder\'>📋 案例 154-162</div>'"><div class="collage-label">案例 154-162</div></div>
+                <!-- 追加行：复用第一行6张图（乱序），标签递增 -->
+                <div class="collage-box" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_dc036d07-026d-41e3-d57b-5a084b5666e0.png?x-tos-process=image/resize,w_480" alt="案例合集19" onerror="this.outerHTML='<div class=\'collage-placeholder\'>📋 案例 163-171</div>'"><div class="collage-label">案例 163-171</div></div>
+                <div class="collage-box" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_87152522-5334-41f4-803b-ec538ce51cb8.png?x-tos-process=image/resize,w_480" alt="案例合集20" onerror="this.outerHTML='<div class=\'collage-placeholder\'>📋 案例 172-180</div>'"><div class="collage-label">案例 172-180</div></div>
+                <div class="collage-box" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_e1af2f74-63b5-4716-831d-e4f386f076c2.png?x-tos-process=image/resize,w_480" alt="案例合集21" onerror="this.outerHTML='<div class=\'collage-placeholder\'>📋 案例 181-189</div>'"><div class="collage-label">案例 181-189</div></div>
+                <div class="collage-box" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_f7c332a3-32fd-47e9-a214-c607f33c374c.png?x-tos-process=image/resize,w_480" alt="案例合集22" onerror="this.outerHTML='<div class=\'collage-placeholder\'>📋 案例 190-198</div>'"><div class="collage-label">案例 190-198</div></div>
+                <div class="collage-box" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/4e82de55-661f-403e-a1ac-23cee19e0a8f-11391915.jpg?x-tos-process=image/resize,w_480" alt="案例合集23" onerror="this.outerHTML='<div class=\'collage-placeholder\'>📋 案例 199-207</div>'"><div class="collage-label">案例 199-207</div></div>
+                <div class="collage-box" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_d06ce26d-9fc0-47c7-dc9d-170b4f82ec38.png?x-tos-process=image/resize,w_480" alt="案例合集24" onerror="this.outerHTML='<div class=\'collage-placeholder\'>📋 案例 208-216</div>'"><div class="collage-label">案例 208-216</div></div>
             </div>
         </div>
     </section>
 
 
     <!-- ═══ Section 2c: 服务具象化展示 ═══ -->
-    <section class="section section-blue-light" data-index="2">
+    <section class="section section-blue-light" data-index="7">
         <div class="container">
             <div class="text-center fade-up">
                 <div class="sec-label">OUR SERVICES</div>
@@ -1239,37 +1285,124 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
         </div>
     </section>
 
+    <!-- ═══ Section: 口碑 testimonials ═══ -->
+    <section class="section section-white" id="voicesSection" data-index="3">
+        <div class="container">
+            <div class="voices-head fade-up">
+                <div class="label">VOICES</div>
+                <h2>听听大家怎么说</h2>
+                <p>来自不同专业、不同学历的往届学员。反馈已做脱敏处理，只保留最真实的感受。</p>
+            </div>
+            <div class="voices-wall">
+                <figure class="voice-card">
+                    <div class="voice-stars">★★★★★</div>
+                    <p class="voice-text">导师给了个很偏的题目，开题阶段差点写不下去。San 的选题框架一次就过了，初稿按学校模板排的，导师基本没挑格式。答辩 PPT 上 15 个预测问题，押中了两道，稳过！</p>
+                    <span class="voice-tag">全包套餐</span>
+                    <span class="voice-author"><span class="voice-avatar" data-in="李" style="background:#135dcd;"><img src="https://api2.mubu.com/v3/document_image/11391915_ad95b6b6-726e-45f5-d9b8-b1bd87fd4a9a.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">金融学 · 本科</span><span class="voice-handle">2026 届</span></span></span>
+                </figure>
+                <figure class="voice-card">
+                    <div class="voice-stars">★★★★★</div>
+                    <p class="voice-text">查重率当初 34%，人反复改了三轮，最后降到 8.7%。最关键是 AI 检测率也一起从 60% 压到 12%，学校两个系统都过了。这钱花得值。</p>
+                    <span class="voice-tag">降重 + 降AI率</span>
+                    <span class="voice-author"><span class="voice-avatar" data-in="陈" style="background:#0d9f4e;"><img src="https://api2.mubu.com/v3/document_image/11391915_f0599b55-0dfc-4165-a15b-69acbf5a0d0c.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">管理学 · 硕士</span><span class="voice-handle">2025 届</span></span></span>
+                </figure>
+                <figure class="voice-card">
+                    <div class="voice-stars">★★★★★</div>
+                    <p class="voice-text">我4月底才找 距答辩只剩两周 San 先帮我理清逻辑框架再铺内容 分段交付很踏实 每段都带批注讲解 我自己也是真看懂了的</p>
+                    <span class="voice-tag">全包套餐</span>
+                    <span class="voice-author"><span class="voice-avatar" data-in="王" style="background:#7b2fbf;"><img src="https://api2.mubu.com/v3/document_image/11391915_b3932164-63a6-41c3-80fa-6f916318bfd0.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">计算机 · 本科</span><span class="voice-handle">2025 届</span></span></span>
+                </figure>
+                <figure class="voice-card">
+                    <div class="voice-stars">★★★★★</div>
+                    <p class="voice-text">本身基础弱 只要了开题加初稿和格式。改到终稿一共改了7次 没有一次额外收费。最后老师那句「格式符合要求」是我最想听到的</p>
+                    <span class="voice-tag">基础套餐</span>
+                    <span class="voice-author"><span class="voice-avatar" data-in="赵" style="background:#b26a00;"><img src="https://api2.mubu.com/v3/document_image/11391915_bc76d93e-27a5-4f1c-9fb3-e386b65a13e6.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">教育学 · 专科</span><span class="voice-handle">2026 届</span></span></span>
+                </figure>
+                <figure class="voice-card">
+                    <div class="voice-stars">★★★★★</div>
+                    <p class="voice-text">PPT 完全按我的论文结构来做，不是通用模板。模拟问到的好几个问题，答辩时导师真的问了差不多的。提前有准备就一点也不慌。</p>
+                    <span class="voice-tag">答辩 PPT + 预测</span>
+                    <span class="voice-author"><span class="voice-avatar" data-in="周" style="background:#c2185b;"><img src="https://api2.mubu.com/v3/document_image/11391915_227afa77-a87c-495b-8de6-c6180702ebff.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">会计学 · 本科</span><span class="voice-handle">2026 届</span></span></span>
+                </figure>
+                <figure class="voice-card">
+                    <div class="voice-stars">★★★★★</div>
+                    <p class="voice-text">边上班边写 最怕没进度 San 按节点催我 初稿完成先送了查重报告 AIGC率也压到位 全程我只出思路 很省心</p>
+                    <span class="voice-tag">全包套餐</span>
+                    <span class="voice-author"><span class="voice-avatar" data-in="黄" style="background:#00695c;"><img src="https://api2.mubu.com/v3/document_image/11391915_bc294bcd-9421-4cd5-95ab-a393f4ad2fb8.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">国际经济与贸易 · 本科</span><span class="voice-handle">2026 届</span></span></span>
+                </figure>
+                <figure class="voice-card">
+                    <div class="voice-stars">★★★★★</div>
+                    <p class="voice-text">改完语义一点没变，还顺手帮我顺了几处表述。说 5 分钟出结果真的不夸张，查重从 26% 降到 9%，报告随单就发了。</p>
+                    <span class="voice-tag">论文降重</span>
+                    <span class="voice-author"><span class="voice-avatar" data-in="吴" style="background:#135dcd;"><img src="https://api2.mubu.com/v3/document_image/11391915_403d1c62-fd93-4405-9d49-69631ea25915.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">汉语言文学 · 本科</span><span class="voice-handle">2025 届</span></span></span>
+                </figure>
+                <figure class="voice-card">
+                    <div class="voice-stars">★★★★★</div>
+                    <p class="voice-text">导师要求知网10%以内 AI率20%以内 卡得特别死 前后调了五次 每次检查报告先到再叫好 最后双达标 老师也挑不出毛病</p>
+                    <span class="voice-tag">查重 + AIGC率</span>
+                    <span class="voice-author"><span class="voice-avatar" data-in="林" style="background:#0d9f4e;"><img src="https://api2.mubu.com/v3/document_image/11391915_845ef5ff-081a-4deb-fe52-4145ee12fe35.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">医学 · 硕士</span><span class="voice-handle">2025 届</span></span></span>
+                </figure>
+                <figure class="voice-card">
+                    <div class="voice-stars">★★★★★</div>
+                    <p class="voice-text">答辩后还被要求补一份证明材料，我以为超了服务范围。结果售后说全包含答辩后 3 个月协助，当天就帮我理好发过去。这点加分很多。</p>
+                    <span class="voice-tag">全包套餐</span>
+                    <span class="voice-author"><span class="voice-avatar" data-in="徐" style="background:#7b2fbf;"><img src="https://api2.mubu.com/v3/document_image/11391915_ffc17a1a-a15a-428a-a4a1-61ad5b3c2520.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">法学 · 本科</span><span class="voice-handle">2026 届</span></span></span>
+                </figure>
+                <figure class="voice-card">
+                    <div class="voice-stars">★★★★☆</div>
+                    <p class="voice-text">我一个人上班➕兼职 写字时间零碎 分段交付让我能按自己的节奏看 有问题随时留言 第二天都有回应 终稿很顺 谢谢</p>
+                    <span class="voice-tag">基础套餐</span>
+                    <span class="voice-author"><span class="voice-avatar" data-in="孙" style="background:#b26a00;"><img src="https://api2.mubu.com/v3/document_image/11391915_55d2fab7-637d-4c20-bb55-1f2e0aecbe7c.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">市场营销 · 本科</span><span class="voice-handle">2025 届</span></span></span>
+                </figure>
+                <figure class="voice-card">
+                    <div class="voice-stars">★★★★★</div>
+                    <p class="voice-text">预测问题不是网上扒的通用稿，是按我论文的实证结果逐条推的，连导师可能追问的稳健性检验都想到了。答辩那天胸有成竹。</p>
+                    <span class="voice-tag">答辩预测</span>
+                    <span class="voice-author"><span class="voice-avatar" data-in="郑" style="background:#c2185b;"><img src="https://api2.mubu.com/v3/document_image/11391915_04b8f337-f235-4024-ee3e-ce6992c9534c.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">通信工程 · 本科</span><span class="voice-handle">2026 届</span></span></span>
+                </figure>
+                <figure class="voice-card">
+                    <div class="voice-stars">★★★★★</div>
+                    <p class="voice-text">数据量大 实证部分我自己啃不动 San 用潜变量模型把结构做扎实 还给了解读 最后查重AIGC盲审答辩一路都顺 值这个价</p>
+                    <span class="voice-tag">全包套餐</span>
+                    <span class="voice-author"><span class="voice-avatar" data-in="何" style="background:#00695c;"><img src="https://api2.mubu.com/v3/document_image/11391915_25334867-0bb3-4bce-c381-63f8556281ce.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">金融学 · 硕士</span><span class="voice-handle">2025 届</span></span></span>
+                </figure>
+            </div>
+            <!-- 发布前请将以下示例文案替换为本店真实学员反馈（保留脱敏格式：专业 · 学历 · 届别）。 -->
+        </div>
+    </section>
+
     <!-- Lightbox -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
         <span class="lightbox-close">&times;</span>
         <img class="lightbox-img" id="lightboxImg" src="" alt="案例大图">
     </div>
 
-    <!-- ═══ Section 3: 价格 ═══ -->
-    <section class="section section-white" data-index="3">
+    <!-- ═══ Section 3: 方案（原"价格"版，已隐藏明码价格，避免客户被数字吓跑。数字版备份见下方注释块） ═══ -->
+    <section class="section section-white" data-index="4">
         <div class="container">
             <div class="text-center fade-up">
-                <div class="sec-label">PRICING</div>
-                <h2 class="sec-title">透明报价 · 拒绝套路</h2>
-                <p class="sec-desc mx-auto">明码标价，无隐藏费用。所有价格均为最终价格，包含修改和查重。</p>
+                <div class="sec-label">PLANS</div>
+                <h2 class="sec-title">一套方案 · 一条龙省心</h2>
+                <p class="sec-desc mx-auto">论文这件事最怕心里没底。选题、初稿、降重、答辩一条龙打包，按你的难易程度量身给你合理报价——聊几句就有数，聊完再决定，不催单。</p>
             </div>
             <div class="pricing-grid">
                 <div class="price-card fade-up">
-                    <h3>论文降重</h3>
-                    <div class="price">约¥5<small>/千字</small></div>
-                    <div class="price-note">最低 ¥50 起</div>
+                    <h3>论文降重 + 降AI率</h3>
+                    <div class="plan-tag">快速救急 · 降重降AI</div>
+                    <div class="price-note">按字数灵活计费</div>
                     <ul class="price-features">
                         <li>人工改写，语义不变</li>
                         <li>查重报告随单交付</li>
+                        <li>AIGC率同步降低</li>
                         <li>不满意免费重改</li>
                         <li>最快 5 分钟交付</li>
                     </ul>
-                    <a class="price-btn price-btn-outline" onclick="document.getElementById('contactSection').scrollIntoView({behavior:'smooth'})">立即咨询</a>
+                    <a class="price-btn price-btn-outline" onclick="document.getElementById('contactSection').scrollIntoView({behavior:'smooth'})">获取降重报价</a>
                 </div>
                 <div class="price-card featured fade-up">
                     <div class="price-badge">🔥 全包无忧</div>
                     <h3>全包套餐</h3>
-                    <div class="price">约¥1220<small>/篇</small></div>
+                    <div class="plan-tag">毕业全程 · 省心首选</div>
                     <div class="price-note">含答辩 + 答辩后修改</div>
                     <ul class="price-features">
                         <li>论文选题 + 开题报告</li>
@@ -1279,11 +1412,11 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
                         <li>全程跟进毕业答辩</li>
                         <li>答辩后修改一条龙</li>
                     </ul>
-                    <a class="price-btn price-btn-primary" onclick="document.getElementById('contactSection').scrollIntoView({behavior:'smooth'})">立即下单</a>
+                    <a class="price-btn price-btn-primary" onclick="document.getElementById('contactSection').scrollIntoView({behavior:'smooth'})">立即聊聊方案</a>
                 </div>
                 <div class="price-card fade-up">
                     <h3>基础套餐</h3>
-                    <div class="price">约¥980<small>/篇</small></div>
+                    <div class="plan-tag">关键交付 · 性价比之选</div>
                     <div class="price-note">不含答辩后修改</div>
                     <ul class="price-features">
                         <li>论文选题 + 开题报告</li>
@@ -1292,7 +1425,7 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
                         <li>答辩 PPT + 答辩预测</li>
                         <li>查重率 + AIGC率服务</li>
                     </ul>
-                    <a class="price-btn price-btn-outline" onclick="document.getElementById('contactSection').scrollIntoView({behavior:'smooth'})">立即咨询</a>
+                    <a class="price-btn price-btn-outline" onclick="document.getElementById('contactSection').scrollIntoView({behavior:'smooth'})">获取方案报价</a>
                 </div>
             </div>
                 <div class="pricing-dots">
@@ -1300,13 +1433,15 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
                     <div class="pricing-dot" data-index="1"></div>
                     <div class="pricing-dot" data-index="2"></div>
                 </div>
-            <p class="text-center fade-up" style="margin-top:24px;color:#6b7a8f;font-size:14px;">💡 价格根据需求难易程度浮动 · 硕士论文、数据分析等服务请咨询获取报价</p>
-            <p class="text-center fade-up" style="margin-top:12px;color:#9aa0a6;font-size:12px;">📌 每年4-5月毕业答辩季，建议选择全包套餐确保服务体验</p>
+            <p class="text-center fade-up" style="margin-top:24px;color:#6b7a8f;font-size:14px;">💡 硕士论文、数据分析等复杂需求，私信聊两句，给你专属的合理报价——不推销、不催单，聊完再决定。</p>
+            <p class="text-center fade-up" style="margin-top:12px;color:#9aa0a6;font-size:12px;">📌 每年4-5月是毕业答辩高峰，档期紧张，建议提前规划。</p>
         </div>
     </section>
 
+    <!-- 原明码价格版已移除，完整数字版可在 Git 历史恢复：git show HEAD:index.html 对应区块。 -->
+
     <!-- ═══ Section 4: 流程 ═══ -->
-    <section class="section section-dark" data-index="4">
+    <section class="section section-dark" data-index="5">
         <div class="process-particles">
             <div class="process-particle pp-1"></div>
             <div class="process-particle pp-2"></div>
@@ -1357,7 +1492,7 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
     </section>
 
     <!-- ═══ Section 5: 联系我 ═══ -->
-    <section class="section section-white" id="contactSection" data-index="5">
+    <section class="section section-white" id="contactSection" data-index="6">
         <div class="container">
             <div class="text-center fade-up">
                 <div class="sec-label">CONTACT</div>
@@ -1420,10 +1555,13 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
     function updateActive() {
         const sections = wrapper.querySelectorAll('.section');
         let activeIdx = 0;
-        sections.forEach((sec, i) => {
-            if (sec.getBoundingClientRect().top <= 150) activeIdx = i;
+        sections.forEach((sec) => {
+            if (sec.getBoundingClientRect().top <= 150) {
+                const di = parseInt(sec.dataset.index, 10);
+                if (!isNaN(di)) activeIdx = di;
+            }
         });
-        dots.forEach((d, i) => d.classList.toggle('active', i === activeIdx));
+        dots.forEach((d) => d.classList.toggle('active', parseInt(d.dataset.index, 10) === activeIdx));
         header.classList.toggle('scrolled', activeIdx > 0);
         document.querySelectorAll('.fade-up').forEach(el => {
             if (el.getBoundingClientRect().top < window.innerHeight - 80) el.classList.add('visible');
