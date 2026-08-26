@@ -79,9 +79,11 @@
         .mobile-menu {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(2,28,49,.97); backdrop-filter: blur(12px);
-            z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 36px;
+            z-index: 999; flex-direction: column; align-items: center; gap: 36px;
+            overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 30px 0 50px;
             opacity: 0; transition: opacity .35s; pointer-events: none;
         }
+        .mobile-menu::before, .mobile-menu::after { content: ""; margin: auto 0; }
         .mobile-menu.open { opacity: 1; pointer-events: auto; }
         .mobile-menu a {
             font-size: 22px; font-weight: 600; color: rgba(255,255,255,.85); min-height: 44px;
@@ -1302,7 +1304,7 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
                 </figure>
                 <figure class="voice-card">
                     <div class="voice-stars">★★★★★</div>
-                    <p class="voice-text">查重率当初 34%，人反复改了三轮，最后降到 8.7%。最关键是 AI 检测率也一起从 60% 压到 12%，学校两个系统都过了。这钱花得值。</p>
+                    <p class="voice-text">查重率当初 34%，一次改完就降到 8.7%。最关键是 AI 检测率也一起从 60% 压到 12%，学校两个系统都过了。这钱花得值。</p>
                     <span class="voice-tag">降重 + 降AI率</span>
                     <span class="voice-author"><span class="voice-avatar" data-in="陈" style="background:#0d9f4e;"><img src="https://api2.mubu.com/v3/document_image/11391915_f0599b55-0dfc-4165-a15b-69acbf5a0d0c.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">管理学 · 硕士</span><span class="voice-handle">2025 届</span></span></span>
                 </figure>
@@ -1338,7 +1340,7 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
                 </figure>
                 <figure class="voice-card">
                     <div class="voice-stars">★★★★★</div>
-                    <p class="voice-text">导师要求知网10%以内 AI率20%以内 卡得特别死 前后调了五次 每次检查报告先到再叫好 最后双达标 老师也挑不出毛病</p>
+                    <p class="voice-text">导师要求知网10%以内 AI率20%以内 卡得特别死 结果一次改完两项都达标 检查报告先到再叫好 老师也挑不出毛病</p>
                     <span class="voice-tag">查重 + AIGC率</span>
                     <span class="voice-author"><span class="voice-avatar" data-in="林" style="background:#0d9f4e;"><img src="https://api2.mubu.com/v3/document_image/11391915_845ef5ff-081a-4deb-fe52-4145ee12fe35.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">医学 · 硕士</span><span class="voice-handle">2025 届</span></span></span>
                 </figure>
