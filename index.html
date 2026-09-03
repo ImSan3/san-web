@@ -636,8 +636,9 @@
         .voices-head p { font-size: 17px; color: #6b7a8f; max-width: 760px; margin: 0 auto; line-height: 1.8; }
         .voices-wall { column-width: 280px; column-gap: 14px; margin-top: clamp(28px,4vw,48px); }
         .voice-card {
+            position: relative; overflow: hidden;
             break-inside: avoid; margin: 0 0 14px; padding: 16px 18px 14px;
-            background: #fff; border: 1px solid #e5ecf6; border-radius: 14px;
+            background: #f2f7fe; border: 1px solid #dfeafa; border-radius: 14px;
             box-shadow: 0 8px 30px rgba(5,77,136,.06);
             transition: transform .2s, box-shadow .2s; color: #1c2b3e;
         }
@@ -658,7 +659,10 @@
         .voice-meta { display: flex; flex-direction: column; min-width: 0; }
         .voice-name { font-size: 14px; font-weight: 700; color: #0a2540; }
         .voice-handle { font-size: 13px; color: #8a97a8; }
-
+        .voice-shot { position: absolute; right: 0; bottom: 0; width: 66%; height: 72%; z-index: 0; cursor: zoom-in; background: rgba(255,255,255,.72); border-top: 1px solid #d8e6f9; border-left: 1px solid #d8e6f9; border-top-left-radius: 12px; }
+        .voice-shot img { width: 100%; height: 100%; object-fit: contain; object-position: right bottom; display: block; opacity: .58; transition: opacity .2s; }
+        .voice-card:hover .voice-shot img { opacity: .75; }
+        .voice-card > :not(.voice-shot) { position: relative; z-index: 1; }
         /* Lightbox */
         .lightbox {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -1293,78 +1297,78 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
             <div class="voices-head fade-up">
                 <div class="label">VOICES</div>
                 <h2>听听大家怎么说</h2>
-                <p>来自不同专业、不同学历的往届学员。反馈已做脱敏处理，只保留最真实的感受。</p>
+                <p>从聊天记录里挑的一句原话，做了脱敏。</p>
             </div>
-            <div class="voices-wall">
+                        <div class="voices-wall">
                 <figure class="voice-card">
-                    <div class="voice-stars">★★★★★</div>
-                    <p class="voice-text">导师给我一个很偏的题目，开题阶段差点写不下去。San 给的选题框架一次通过，初稿直接按学校模板排好，导师几乎没挑格式。答辩 PPT 上 15 道预测题押中两道，稳过！</p>
+                    <p class="voice-text">选题过了！一次过 格式导师都没挑</p>
+                    <div class="voice-shot" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" loading="lazy" alt="聊天记录截图" src="https://api2.mubu.com/v3/document_image/11391915_bac12901-bfa6-4fab-b3e7-e77875022159.jpg?x-tos-process=image/resize,w_800" onerror="this.parentNode.style.display='none'"></div>
                     <span class="voice-tag">全包套餐</span>
                     <span class="voice-author"><span class="voice-avatar" data-in="李" style="background:#135dcd;"><img src="https://api2.mubu.com/v3/document_image/11391915_ad95b6b6-726e-45f5-d9b8-b1bd87fd4a9a.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">金融学 · 本科</span><span class="voice-handle">2026 届</span></span></span>
                 </figure>
                 <figure class="voice-card">
-                    <div class="voice-stars">★★★★★</div>
-                    <p class="voice-text">查重率从 34% 一次改到 8.7%，AI 率也从 60% 压到 12%。两个系统都过了，省心。</p>
+                    <p class="voice-text">出分了 查重8.7 AI率12 都过了</p>
+                    <div class="voice-shot" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" loading="lazy" alt="聊天记录截图" src="https://api2.mubu.com/v3/document_image/11391915_378d3616-e376-4994-b108-27f0e1e8a5f3.jpg?x-tos-process=image/resize,w_800" onerror="this.parentNode.style.display='none'"></div>
                     <span class="voice-tag">降重 + 降AI率</span>
                     <span class="voice-author"><span class="voice-avatar" data-in="陈" style="background:#0d9f4e;"><img src="https://api2.mubu.com/v3/document_image/11391915_f0599b55-0dfc-4165-a15b-69acbf5a0d0c.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">管理学 · 硕士</span><span class="voice-handle">2025 届</span></span></span>
                 </figure>
                 <figure class="voice-card">
-                    <div class="voice-stars">★★★★★</div>
-                    <p class="voice-text">两周极限交付全靠 San 一路带 😌</p>
+                    <p class="voice-text">两周真赶上交了 太狠了杭哥</p>
+                    <div class="voice-shot" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" loading="lazy" alt="聊天记录截图" src="https://api2.mubu.com/v3/document_image/11391915_0b513e65-8229-478c-dba5-b682d02c360f.jpg?x-tos-process=image/resize,w_800" onerror="this.parentNode.style.display='none'"></div>
                     <span class="voice-tag">全包套餐</span>
                     <span class="voice-author"><span class="voice-avatar" data-in="王" style="background:#7b2fbf;"><img src="https://api2.mubu.com/v3/document_image/11391915_b3932164-63a6-41c3-80fa-6f916318bfd0.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">计算机 · 本科</span><span class="voice-handle">2025 届</span></span></span>
                 </figure>
                 <figure class="voice-card">
-                    <div class="voice-stars">★★★★★</div>
-                    <p class="voice-text">基础差只要了开题加初稿和格式。改到终稿导师一句「格式符合要求」我就放心了</p>
+                    <p class="voice-text">导师刚才只回了一句 格式符合要求 我放心了 我要去面试了现在</p>
+                    <div class="voice-shot" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" loading="lazy" alt="聊天记录截图" src="https://api2.mubu.com/v3/document_image/11391915_c76d7e8d-ebe6-4068-da6e-18bf64d8e982.jpg?x-tos-process=image/resize,w_800" onerror="this.parentNode.style.display='none'"></div>
                     <span class="voice-tag">基础套餐</span>
                     <span class="voice-author"><span class="voice-avatar" data-in="赵" style="background:#b26a00;"><img src="https://api2.mubu.com/v3/document_image/11391915_bc76d93e-27a5-4f1c-9fb3-e386b65a13e6.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">教育学 · 专科</span><span class="voice-handle">2026 届</span></span></span>
                 </figure>
                 <figure class="voice-card">
-                    <div class="voice-stars">★★★★★</div>
-                    <p class="voice-text">PPT 完全按我的论文结构来做，不是通用模板。模拟到的好几个问题，答辩时导师真的问了差不多的。提前准备了就是稳。</p>
+                    <p class="voice-text">答辩问的跟你模拟的撞了好几道</p>
+                    <div class="voice-shot" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" loading="lazy" alt="聊天记录截图" src="https://api2.mubu.com/v3/document_image/11391915_f99de7d6-8fe8-441d-c126-0dae4377c17e.jpg?x-tos-process=image/resize,w_800" onerror="this.parentNode.style.display='none'"></div>
                     <span class="voice-tag">答辩 PPT + 预测</span>
                     <span class="voice-author"><span class="voice-avatar" data-in="周" style="background:#c2185b;"><img src="https://api2.mubu.com/v3/document_image/11391915_227afa77-a87c-495b-8de6-c6180702ebff.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">会计学 · 本科</span><span class="voice-handle">2026 届</span></span></span>
                 </figure>
                 <figure class="voice-card">
-                    <div class="voice-stars">★★★★★</div>
-                    <p class="voice-text">边上班边写 San 全程盯进度 我只出思路 很省心</p>
+                    <p class="voice-text">我就出个思路 其他你都盯完了 太省心</p>
+                    <div class="voice-shot" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" loading="lazy" alt="聊天记录截图" src="https://api2.mubu.com/v3/document_image/11391915_7cc2222c-adcf-4084-bd11-46b3205ba1be.jpg?x-tos-process=image/resize,w_800" onerror="this.parentNode.style.display='none'"></div>
                     <span class="voice-tag">全包套餐</span>
                     <span class="voice-author"><span class="voice-avatar" data-in="黄" style="background:#00695c;"><img src="https://api2.mubu.com/v3/document_image/11391915_bc294bcd-9421-4cd5-95ab-a393f4ad2fb8.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">国际经济与贸易 · 本科</span><span class="voice-handle">2026 届</span></span></span>
                 </figure>
                 <figure class="voice-card">
-                    <div class="voice-stars">★★★★★</div>
-                    <p class="voice-text">两个字：牛逼！！！</p>
+                    <p class="voice-text">两个字 牛逼！！！</p>
+                    <div class="voice-shot" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" loading="lazy" alt="聊天记录截图" src="https://api2.mubu.com/v3/document_image/11391915_4d0470db-9249-4c4b-99ae-62ae87394be0.jpg?x-tos-process=image/resize,w_800" onerror="this.parentNode.style.display='none'"></div>
                     <span class="voice-tag">论文降重</span>
                     <span class="voice-author"><span class="voice-avatar" data-in="吴" style="background:#135dcd;"><img src="https://api2.mubu.com/v3/document_image/11391915_403d1c62-fd93-4405-9d49-69631ea25915.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">汉语言文学 · 本科</span><span class="voice-handle">2025 届</span></span></span>
                 </figure>
                 <figure class="voice-card">
-                    <div class="voice-stars">★★★★★</div>
-                    <p class="voice-text">要求知网 10% 以内、AI 率 20% 以内，卡得很死。一次改完两项全达标，报告先行再叫好。</p>
+                    <p class="voice-text">我们卡那么死 一次改完两项全过</p>
+                    <div class="voice-shot" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" loading="lazy" alt="聊天记录截图" src="https://api2.mubu.com/v3/document_image/11391915_1fa3908e-8fe5-43af-aaac-a2b4604f60b2.jpg?x-tos-process=image/resize,w_800" onerror="this.parentNode.style.display='none'"></div>
                     <span class="voice-tag">查重 + AIGC率</span>
                     <span class="voice-author"><span class="voice-avatar" data-in="林" style="background:#0d9f4e;"><img src="https://api2.mubu.com/v3/document_image/11391915_845ef5ff-081a-4deb-fe52-4145ee12fe35.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">医学 · 硕士</span><span class="voice-handle">2025 届</span></span></span>
                 </figure>
                 <figure class="voice-card">
-                    <div class="voice-stars">★★★★★</div>
-                    <p class="voice-text">答辩后还被要求补一份证明材料，我本以为超出服务范围。结果售后说全包的答辩后 3 个月协助，当天就帮我理好发过去了，这点很加分。</p>
+                    <p class="voice-text">答辩完补材料当天就给我理好了 这售后没话说</p>
+                    <div class="voice-shot" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" loading="lazy" alt="聊天记录截图" src="https://api2.mubu.com/v3/document_image/11391915_b46dd641-d388-49d5-ece1-de18b89d2cd9.jpg?x-tos-process=image/resize,w_800" onerror="this.parentNode.style.display='none'"></div>
                     <span class="voice-tag">全包套餐</span>
                     <span class="voice-author"><span class="voice-avatar" data-in="徐" style="background:#7b2fbf;"><img src="https://api2.mubu.com/v3/document_image/11391915_ffc17a1a-a15a-428a-a4a1-61ad5b3c2520.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">法学 · 本科</span><span class="voice-handle">2026 届</span></span></span>
                 </figure>
                 <figure class="voice-card">
-                    <div class="voice-stars">★★★★☆</div>
-                    <p class="voice-text">我一个人上班➕兼职写字时间零碎 分段交付刚好对节奏</p>
+                    <p class="voice-text">我靠你把数据都打包了啊，贴心。</p>
+                    <div class="voice-shot" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" loading="lazy" alt="聊天记录截图" src="https://api2.mubu.com/v3/document_image/11391915_539e2f12-f72d-453e-9ff2-8e2ee6ac8d39.jpg?x-tos-process=image/resize,w_800" onerror="this.parentNode.style.display='none'"></div>
                     <span class="voice-tag">基础套餐</span>
                     <span class="voice-author"><span class="voice-avatar" data-in="孙" style="background:#b26a00;"><img src="https://api2.mubu.com/v3/document_image/11391915_55d2fab7-637d-4c20-bb55-1f2e0aecbe7c.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">市场营销 · 本科</span><span class="voice-handle">2025 届</span></span></span>
                 </figure>
                 <figure class="voice-card">
-                    <div class="voice-stars">★★★★★</div>
-                    <p class="voice-text">预测不是网上扒的通用稿，是按我论文的实证结果逐条推的。连稳健性检验都想到了，答辩那天很有底。</p>
+                    <p class="voice-text">连稳健性检验都想到了 答辩心里有底</p>
+                    <div class="voice-shot" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" loading="lazy" alt="聊天记录截图" src="https://api2.mubu.com/v3/document_image/11391915_a9cdcf61-feb3-4cce-b042-1f8de272e902.jpg?x-tos-process=image/resize,w_800" onerror="this.parentNode.style.display='none'"></div>
                     <span class="voice-tag">答辩预测</span>
                     <span class="voice-author"><span class="voice-avatar" data-in="郑" style="background:#c2185b;"><img src="https://api2.mubu.com/v3/document_image/11391915_04b8f337-f235-4024-ee3e-ce6992c9534c.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">通信工程 · 本科</span><span class="voice-handle">2026 届</span></span></span>
                 </figure>
                 <figure class="voice-card">
-                    <div class="voice-stars">★★★★★</div>
-                    <p class="voice-text">数据量大，实证我自己啃不动。San 用潜变量模型把结构做扎实，还给了解读。查重、AIGC、盲审、答辩一路顺，值这个价</p>
+                    <p class="voice-text">查重盲审答辩一路过 值  不过我觉得你这样太操心了 你明年考虑涨价吗</p>
+                    <div class="voice-shot" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" loading="lazy" alt="聊天记录截图" src="https://api2.mubu.com/v3/document_image/11391915_cf849c84-8b2b-48eb-bbfd-d6ef97d3c1ba.jpg?x-tos-process=image/resize,w_800" onerror="this.parentNode.style.display='none'"></div>
                     <span class="voice-tag">全包套餐</span>
                     <span class="voice-author"><span class="voice-avatar" data-in="何" style="background:#00695c;"><img src="https://api2.mubu.com/v3/document_image/11391915_25334867-0bb3-4bce-c381-63f8556281ce.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span><span class="voice-meta"><span class="voice-name">金融学 · 硕士</span><span class="voice-handle">2025 届</span></span></span>
                 </figure>
