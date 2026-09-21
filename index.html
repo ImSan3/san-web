@@ -19,7 +19,7 @@
 
         /* ─── Container ─── */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; width: 100%; position: relative; z-index: 2; }
-        @media (max-width: 600px) { .container { padding: 0 16px; } }
+        @media (max-width: 600px) { .container { padding: 0 21px; } }
 
         /* ─── Navigation ─── */
         .header-container {
@@ -238,11 +238,15 @@
                 linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
             background-size: 60px 60px;
             z-index: 1; pointer-events: none;
-            animation: gridPulse 8s ease-in-out infinite;
+            animation: gridIn 1.4s cubic-bezier(.22,1,.36,1) both, gridPulse 8s ease-in-out 1.4s infinite;
         }
         @keyframes gridPulse {
             0%,100% { opacity: .5; background-size: 60px 60px; }
             50% { opacity: .8; background-size: 62px 62px; }
+        }
+        @keyframes gridIn {
+            from { opacity: 0; transform: scale(1.05); }
+            to { opacity: .5; transform: scale(1); }
         }
 
         /* ─── Floating Code Snippets ─── */
@@ -339,7 +343,7 @@
         .ball-5 {
             width: clamp(50px,6vw,90px); height: clamp(50px,6vw,90px);
             top: 60%; left: 10%;
-            background: radial-gradient(circle at 30% 30%, rgba(127,185,255,.5), rgba(127,185,255,.08));
+            background: radial-gradient(circle at 30% 30%, rgba(127,185,255,.5), rgba(127,185,255,.04));
             box-shadow: 0 0 45px rgba(127,185,255,.4), 0 0 90px rgba(127,185,255,.2);
             animation: orbDrift 3.5s ease-in-out infinite 1.2s;
         }
@@ -452,6 +456,7 @@
             font-size: clamp(15px,1.5vw,18px); font-weight: 600; transition: opacity .2s; cursor: pointer; min-height: 44px;
         }
         .btn-primary:hover { opacity: .85; }
+        .btn-primary .btn-icon, .floating-cta .btn-icon { width: 1.2em; height: 1.2em; flex: 0 0 auto; }
         .btn-outline {
             display: inline-flex; align-items: center; gap: 8px;
             padding: clamp(14px,1.4vw,16px) clamp(20px,2.6vw,32px);
@@ -479,6 +484,89 @@
         @media (min-width: 1200px) { .stat-item:first-child { align-items: flex-start; } .stat-item:last-child { align-items: flex-end; } }
         @media (max-width: 480px) { .stats-bar .container { flex-wrap: wrap; } .stat-item { flex: 0 0 50%; padding: 10px 8px; } .stat-item:nth-child(2)::after { display: none; } .stat-item .num { font-size: 20px; } }
 
+        /* ─── Hero Opening Choreography（首屏开场编排） ─── */
+        .ball-field {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            animation: fieldIn 1.2s cubic-bezier(.22,1,.36,1) .1s both;
+        }
+        @keyframes fieldIn {
+            from { opacity: 0; transform: scale(1.15); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes riseIn {
+            from { opacity: 0; transform: translateY(26px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(.55) translateY(10px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        /* 左列：徽章弹出 → 标题逐行遮罩升起 → 描述/特性/按钮错峰浮现 */
+        .hero-badge { animation: popIn .7s cubic-bezier(.34,1.56,.64,1) .15s both; }
+        .hero-title .t-line { display: block; overflow: hidden; padding: .03em 0; margin: -.03em 0; }
+        .hero-title .t-line-in {
+            display: inline-block;
+            animation: lineUp .95s cubic-bezier(.16,1,.3,1) both;
+        }
+        @keyframes lineUp { from { transform: translateY(115%); } to { transform: translateY(0); } }
+        .hero-title .t-line:nth-child(1) .t-line-in { animation-delay: .3s; }
+        .hero-title .t-line:nth-child(2) .t-line-in { animation-delay: .44s; }
+        .hero-title em { position: relative; }
+        .hero-title em::after {
+            content: ''; position: absolute; left: 0; right: 0; bottom: .04em; height: .05em;
+            background: linear-gradient(90deg, #7fb9ff, rgba(255,255,255,.85));
+            border-radius: 2px; transform-origin: left;
+            animation: drawX .7s cubic-bezier(.22,1,.36,1) 1.05s both;
+        }
+        .hero-desc { animation: riseIn .8s cubic-bezier(.22,1,.36,1) .62s both; }
+        .hero-desc .rating { animation: popIn .6s cubic-bezier(.34,1.56,.64,1) 1s both; }
+        .hero-features li { animation: riseIn .7s cubic-bezier(.22,1,.36,1) both; }
+        .hero-features li:nth-child(1) { animation-delay: .74s; }
+        .hero-features li:nth-child(2) { animation-delay: .82s; }
+        .hero-features li:nth-child(3) { animation-delay: .9s; }
+        .hero-features li:nth-child(4) { animation-delay: .98s; }
+        .hero-cta .btn-primary { position: relative; animation: riseIn .8s cubic-bezier(.22,1,.36,1) 1.06s both, ctaPing 1s ease 1.9s 1; }
+        .hero-cta .btn-outline { animation: riseIn .8s cubic-bezier(.22,1,.36,1) 1.16s both; }
+        @keyframes ctaPing {
+            0% { box-shadow: 0 0 0 0 rgba(255,255,255,.5); }
+            100% { box-shadow: 0 0 0 18px rgba(255,255,255,0); }
+        }
+        /* 右列：卡片3D入场 + 内部错峰（标题→数字→分割线→胶囊） */
+        .hero-card {
+            transform-origin: center;
+            animation: cardIn 1.05s cubic-bezier(.22,1,.36,1) .55s both;
+        }
+        @keyframes cardIn {
+            from { opacity: 0; transform: perspective(1000px) translateX(72px) rotateY(-12deg) scale(.95); }
+            to { opacity: 1; transform: perspective(1000px) translateX(0) rotateY(0) scale(1); }
+        }
+        .hero-card h3 { animation: riseIn .7s cubic-bezier(.22,1,.36,1) .8s both; }
+        .hero-stat .num { animation: popIn .65s cubic-bezier(.34,1.56,.64,1) both; }
+        .hero-stat:nth-of-type(1) .num { animation-delay: .95s; }
+        .hero-stat:nth-of-type(2) .num { animation-delay: 1.08s; }
+        .hero-stat .label { animation: riseIn .6s ease both; }
+        .hero-stat:nth-of-type(1) .label { animation-delay: 1.05s; }
+        .hero-stat:nth-of-type(2) .label { animation-delay: 1.18s; }
+        .hero-card .divider { transform-origin: left; animation: drawX .8s cubic-bezier(.22,1,.36,1) 1.25s both; }
+        @keyframes drawX { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+        .hero-card .pill { animation: popIn .55s cubic-bezier(.34,1.56,.64,1) both; }
+        .hero-card .pill:nth-child(1) { animation-delay: 1.3s; }
+        .hero-card .pill:nth-child(2) { animation-delay: 1.38s; }
+        .hero-card .pill:nth-child(3) { animation-delay: 1.46s; }
+        .hero-card .pill:nth-child(4) { animation-delay: 1.54s; }
+        /* 底部数据条升起 */
+        .stats-bar { animation: riseIn .9s cubic-bezier(.22,1,.36,1) 1.05s both; }
+        @media (prefers-reduced-motion: reduce) {
+            .section-hero, .section-hero * {
+                animation-duration: .01s !important; animation-delay: 0s !important;
+                animation-iteration-count: 1 !important;
+            }
+            .section[data-index="2"] *, .section[data-index="5"] *, .section[data-index="7"] * {
+                transition-duration: .01s !important; transition-delay: 0s !important;
+            }
+        }
+
         /* ─── Section titles ─── */
         .sec-label { display: inline-block; font-size: clamp(11px,1.1vw,13px); letter-spacing: 3px; color: #5b9eff; font-weight: 600; margin-bottom: clamp(8px,1vw,12px); }
         .sec-title { font-size: clamp(24px,3.4vw,40px); font-weight: 900; line-height: 1.25; margin-bottom: clamp(10px,1.2vw,14px); font-family: 'Didot', 'Times New Roman', serif; }
@@ -488,15 +576,20 @@
         .mx-auto { margin-left: auto; margin-right: auto; }
 
         /* ─── Services Grid ─── */
-        .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: clamp(16px,2.4vw,28px); margin-top: clamp(28px,4vw,48px); }
+        .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: clamp(20px,2.6vw,32px); margin-top: clamp(28px,4vw,48px); }
         @media (max-width: 1024px) and (min-width: 601px) { .services-grid { grid-template-columns: repeat(2,1fr); } }
         @media (max-width: 600px) { .services-grid { grid-template-columns: 1fr; } }
+        /* ─── 案例区宽容器（桌面端图块放大，手机端不受影响） ─── */
+        @media (min-width: 1201px) { .section[data-index="2"] .container { max-width: 1760px; } }
+
+        /* ─── 服务区：简约清爽卡片 ─── */
         .service-card {
-            background: #fff; border-radius: clamp(14px,1.8vw,20px);
-            padding: clamp(20px,3vw,36px) clamp(18px,2.4vw,28px);
-            box-shadow: 0 8px 40px rgba(5,77,136,.06); transition: transform .25s, box-shadow .25s; cursor: default;
+            background: #fff; border-radius: clamp(16px,2vw,24px);
+            padding: clamp(24px,3.2vw,40px) clamp(20px,2.6vw,32px);
+            box-shadow: 0 1px 2px rgba(16,24,40,.04), 0 12px 32px rgba(16,24,40,.05);
+            transition: transform .25s, box-shadow .25s; cursor: default;
         }
-        .service-card:hover { transform: translateY(-6px); box-shadow: 0 16px 60px rgba(5,77,136,.12); }
+        .service-card:hover { transform: translateY(-4px); box-shadow: 0 2px 4px rgba(16,24,40,.05), 0 18px 44px rgba(16,24,40,.09); }
         .service-icon {
             width: clamp(50px,5.3vw,62px); height: clamp(50px,5.3vw,62px);
             border-radius: clamp(12px,1.4vw,16px); display: flex; align-items: center; justify-content: center;
@@ -515,7 +608,7 @@
         }
         .service-card h3.animate-in { opacity: 1; transform: translateY(0); }
         .service-card p {
-            font-size: clamp(13px,1.2vw,14px); color: #6b7a8f; line-height: 1.7; text-align: center;
+            font-size: clamp(13px,1.2vw,14px); color: #6f767e; line-height: 1.7; text-align: center;
             opacity: 0; transform: translateY(15px);
             transition: opacity 0.7s ease 0.5s, transform 0.7s ease 0.5s;
         }
@@ -555,10 +648,10 @@
 
         /* ─── Cases / Portfolio — Collage Grid ─── */
         .collage-grid {
-            display: grid; grid-template-columns: repeat(6,1fr);
-            gap: clamp(8px,1.2vw,12px); margin-top: clamp(28px,4vw,48px);
+            display: grid; grid-template-columns: repeat(8,1fr);
+            gap: clamp(8px,1.2vw,12px); margin-top: clamp(17px,2.4vw,29px);
         }
-        @media (max-width: 1200px) { .collage-grid { grid-template-columns: repeat(4,1fr); } }
+        @media (max-width: 1200px) { .collage-grid { grid-template-columns: repeat(6,1fr); } }
         @media (max-width: 900px) { .collage-grid { grid-template-columns: repeat(3,1fr); } }
         @media (max-width: 600px) { .collage-grid { grid-template-columns: repeat(2,1fr); } }
         .collage-box {
@@ -566,13 +659,25 @@
             background: #e8f0fe; position: relative;
             transition: transform .2s, box-shadow .2s;
         }
+        .collage-box::after {
+            content: ''; position: absolute; inset: 0; z-index: 1; border-radius: inherit; pointer-events: none;
+            background:
+                linear-gradient(135deg, rgba(255,255,255,.11), rgba(255,255,255,0) 30%),
+                radial-gradient(130% 130% at 50% 42%, rgba(0,0,0,0) 58%, rgba(4,10,20,.26) 100%);
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,.10), inset 0 1px 0 rgba(255,255,255,.20);
+        }
         .collage-box:hover { transform: scale(1.04); box-shadow: 0 8px 28px rgba(0,0,0,.18); z-index: 2; }
         .collage-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .collage-label {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            background: linear-gradient(transparent, rgba(0,0,0,.55));
+            position: absolute; bottom: clamp(8px,.9vw,12px); left: 50%; transform: translateX(-50%); z-index: 2;
+            max-width: calc(100% - 16px); padding: clamp(4px,.7vw,6px) clamp(10px,1.4vw,16px);
+            border-radius: 999px; text-align: center; pointer-events: none; white-space: nowrap;
             color: #fff; font-size: clamp(10px,1vw,13px); font-weight: 600;
-            padding: 20px 8px 8px; text-align: center; pointer-events: none;
+            text-shadow: 0 1px 2px rgba(0,0,0,.35);
+            background: rgba(255,255,255,.17);
+            backdrop-filter: blur(12px) saturate(150%); -webkit-backdrop-filter: blur(12px) saturate(150%);
+            border: 1px solid rgba(255,255,255,.30);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 4px 14px rgba(0,0,0,.25);
         }
         .collage-placeholder {
             width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
@@ -606,28 +711,115 @@
         .ppt-card-body p { font-size: clamp(11px,1vw,13px); color: #6b7a8f; line-height: 1.5; margin: 0; }
         @media (max-width: 600px) { .ppt-card { flex: 0 0 72vw; } }
 
-        /* ─── Service Showcase — Visual Cards ─── */
+        /* ─── Service Showcase — immersive glass bento ─── */
+        .section-showcase {
+            isolation: isolate; color: #f7fbff;
+            background: #0b1a2b;
+        }
+        .section-showcase::before {
+            content: ''; position: absolute; inset: -12%; z-index: 0; pointer-events: none;
+            background: url('./images/collage/collage17.jpg') center / cover no-repeat;
+            filter: blur(22px) saturate(.64) contrast(.92); opacity: .46;
+            transform: scale(1.12);
+        }
+        .section-showcase::after {
+            content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+            background:
+                radial-gradient(circle at 16% 20%, rgba(124, 183, 255, .22), transparent 28%),
+                radial-gradient(circle at 86% 78%, rgba(48, 112, 160, .18), transparent 32%),
+                linear-gradient(120deg, rgba(5, 18, 32, .88), rgba(10, 34, 49, .62) 52%, rgba(4, 15, 27, .9));
+        }
+        .section-showcase .container { z-index: 2; }
+        .section-showcase .sec-label { color: #a7cdfc; }
+        .section-showcase .sec-title { color: #f7fbff; }
+        .section-showcase .sec-desc { color: rgba(230, 240, 250, .72); }
+        .section-showcase .text-center { text-align: left; max-width: 700px; }
+        .section-showcase .text-center .mx-auto { margin-left: 0; }
         .showcase-grid {
-            display: grid; grid-template-columns: repeat(5,1fr);
-            gap: clamp(12px,1.5vw,20px); margin-top: clamp(24px,3vw,40px);
+            display: grid; grid-template-columns: 1.12fr 1fr 1fr;
+            grid-template-rows: repeat(2, minmax(220px, 1fr));
+            gap: clamp(14px, 1.8vw, 24px); margin-top: clamp(28px, 4vw, 52px);
         }
-        @media (max-width: 1100px) { .showcase-grid { grid-template-columns: repeat(3,1fr); } }
-        @media (max-width: 700px) { .showcase-grid { grid-template-columns: repeat(2,1fr); } }
-        @media (max-width: 480px) { .showcase-grid { grid-template-columns: 1fr; } }
         .showcase-card {
-            border-radius: 14px; overflow: hidden; background: #fff;
-            box-shadow: 0 4px 20px rgba(5,77,136,.06);
-            transition: transform .25s, box-shadow .25s;
+            position: relative; min-height: 270px; overflow: hidden; isolation: isolate;
+            border: 1px solid rgba(255,255,255,.22); border-radius: 28px;
+            background: rgba(255,255,255,.1);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.28), 0 24px 60px rgba(0, 12, 24, .25);
+            transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease, border-color .35s ease;
+            cursor: default;
         }
-        .showcase-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(5,77,136,.12); }
+        .showcase-card:first-child { grid-row: span 2; min-height: 560px; }
+        .showcase-card::before {
+            content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+            background: linear-gradient(180deg, rgba(6, 20, 33, .02) 20%, rgba(4, 14, 25, .18) 48%, rgba(4, 12, 23, .9) 100%);
+        }
+        .showcase-card::after {
+            content: ''; position: absolute; inset: 1px; z-index: 3; pointer-events: none;
+            border: 1px solid rgba(255,255,255,.1); border-radius: 27px;
+            background: linear-gradient(135deg, rgba(255,255,255,.15), transparent 32%, transparent 68%, rgba(255,255,255,.05));
+        }
+        .showcase-card:hover {
+            transform: translateY(-7px) scale(1.012);
+            border-color: rgba(181, 220, 255, .58);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.38), 0 30px 74px rgba(0, 12, 24, .38);
+        }
         .showcase-card-img {
-            width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block;
-            background: #edf3fe;
+            position: absolute; inset: 0; z-index: 0;
+            width: 100%; height: 100%; object-fit: cover; display: block;
+            background: #17314b; filter: saturate(.72) contrast(.94);
+            transition: transform .6s cubic-bezier(.16,1,.3,1), filter .35s ease;
         }
-        .showcase-card-body { padding: clamp(12px,1.4vw,18px); }
-        .showcase-card-body .sc-icon { font-size: 28px; margin-bottom: 6px; }
-        .showcase-card-body h4 { font-size: clamp(14px,1.3vw,17px); font-weight: 700; color: #021c31; margin-bottom: 6px; }
-        .showcase-card-body p { font-size: clamp(12px,1.1vw,14px); color: #6b7a8f; line-height: 1.6; margin: 0; }
+        .showcase-card:hover .showcase-card-img { transform: scale(1.055); filter: saturate(.88) contrast(1); }
+        .showcase-card-body {
+            position: absolute; left: 50%; right: auto; bottom: clamp(14px, 1.6vw, 22px); z-index: 2;
+            width: 55%; padding: clamp(10px, 1vw, 13px) clamp(11px, 1.1vw, 14px); border-radius: 16px;
+            border: 1px solid rgba(255,255,255,.18);
+            background: linear-gradient(135deg, rgba(255,255,255,.22), rgba(255,255,255,.08));
+            backdrop-filter: blur(18px) saturate(125%); -webkit-backdrop-filter: blur(18px) saturate(125%);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 12px 30px rgba(0, 15, 29, .18);
+            transform: translateX(-50%);
+            transition: transform .35s cubic-bezier(.16,1,.3,1), background .35s ease;
+        }
+        .showcase-card:hover .showcase-card-body { transform: translate(-50%, -3px); background: linear-gradient(135deg, rgba(255,255,255,.28), rgba(255,255,255,.11)); }
+        .showcase-card-title { display: flex; align-items: center; gap: 8px; min-width: 0; }
+        .showcase-card-body .sc-icon {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 32px; height: 32px; flex: 0 0 32px; margin: 0; border-radius: 50%;
+            border: 1px solid rgba(255,255,255,.32); background: rgba(255,255,255,.12);
+            color: rgba(255,255,255,.96); padding: 7px;
+            stroke: currentColor; fill: none; stroke-width: 1.8;
+            stroke-linecap: round; stroke-linejoin: round;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.3);
+        }
+        .showcase-card-body .sc-icon circle[fill="currentColor"] { fill: currentColor; stroke: none; }
+        .showcase-card-body h4 { min-width: 0; font-size: clamp(16px, 1.4vw, 20px); font-weight: 650; letter-spacing: -.02em; color: #fff; margin: 0; line-height: 1.12; white-space: nowrap; }
+        .showcase-card-body p { max-width: 34em; font-size: clamp(10.5px, .9vw, 12.5px); color: rgba(242, 248, 255, .78); line-height: 1.4; margin: 8px 0 0; }
+        .showcase-card:first-child .showcase-card-body h4 { font-size: clamp(18px, 1.7vw, 22px); line-height: 1.05; max-width: none; }
+        .showcase-card:first-child .showcase-card-body p { max-width: 25em; }
+        @media (max-width: 1100px) {
+            .showcase-grid { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, minmax(220px, 1fr)); }
+            .showcase-card:first-child { grid-row: span 2; min-height: 520px; }
+        }
+        @media (max-width: 700px) {
+            .section-showcase .text-center { max-width: none; }
+            .showcase-grid { grid-template-columns: 1fr; grid-template-rows: none; gap: 14px; }
+            .showcase-card, .showcase-card:first-child { grid-row: auto; min-height: 380px; }
+            .showcase-card-body {
+                top: 50%; bottom: auto; transform: translate(-50%, -50%);
+            }
+            .showcase-card:hover .showcase-card-body { transform: translate(-50%, -50%); }
+            .showcase-card-body .sc-icon { width: 26px; height: 26px; flex: 0 0 26px; padding: 5px; }
+            .showcase-card-body h4, .showcase-card:first-child .showcase-card-body h4 { font-size: 16px; }
+            .showcase-card-body p { font-size: 11px; line-height: 1.45; margin-top: 6px; }
+        }
+        @media (prefers-reduced-transparency: reduce) {
+            .showcase-card-body { background: rgba(14, 34, 52, .92); backdrop-filter: none; -webkit-backdrop-filter: none; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .section-showcase::before { transform: scale(1.02); }
+            .showcase-card, .showcase-card:hover, .showcase-card-body, .showcase-card:hover .showcase-card-body,
+            .showcase-card-img, .showcase-card:hover .showcase-card-img { transition: none; transform: none; }
+        }
 
         /* ─── Testimonials wall (口碑) ─── */
         .voices-head { text-align: center; }
@@ -723,6 +915,12 @@
             position: absolute; top: 0; left: 50%; transform: translateX(-50%);
             padding: 6px 18px; background: #fb8500; color: #fff;
             border-radius: 0 0 12px 12px; font-size: 13px; font-weight: 700;
+            display: inline-flex; align-items: center; gap: 7px; white-space: nowrap;
+        }
+        .price-badge-icon {
+            width: 16px; height: 16px; flex: 0 0 auto;
+            stroke: currentColor; fill: none; stroke-width: 1.8;
+            stroke-linecap: round; stroke-linejoin: round;
         }
         .price-card h3 { font-size: clamp(18px,1.8vw,22px); font-weight: 700; margin-bottom: 8px; }
         .price-card .price { font-size: clamp(32px,3.5vw,44px); font-weight: 900; margin: 16px 0 4px; font-family: 'Didot', 'Times New Roman', serif; }
@@ -776,6 +974,48 @@
             .step-circle { margin: 0; flex-shrink: 0; width: 56px; height: 56px; font-size: 22px; }
             .step p { max-width: none; margin: 0; }
         }
+
+        /* ─── 分幕开场编排（案例展示 / 流程 / 全方位服务） ─── */
+        .section[data-index="2"] .text-center .sec-label,
+        .section[data-index="5"] .text-center .sec-label,
+        .section[data-index="7"] .text-center .sec-label {
+            opacity: 0; transform: translateY(16px);
+            transition: opacity .6s ease, transform .6s cubic-bezier(.22,1,.36,1);
+        }
+        .section[data-index="2"] .text-center .sec-title,
+        .section[data-index="5"] .text-center .sec-title,
+        .section[data-index="7"] .text-center .sec-title {
+            opacity: 0; transform: translateY(26px) scale(.97);
+            transition: opacity .7s ease, transform .7s cubic-bezier(.16,1,.3,1);
+        }
+        .section[data-index="2"] .text-center .sec-desc,
+        .section[data-index="5"] .text-center .sec-desc,
+        .section[data-index="7"] .text-center .sec-desc {
+            opacity: 0; transform: translateY(14px);
+            transition: opacity .6s ease, transform .6s cubic-bezier(.22,1,.36,1);
+        }
+        .section[data-index="2"] .text-center.visible .sec-label,
+        .section[data-index="5"] .text-center.visible .sec-label,
+        .section[data-index="7"] .text-center.visible .sec-label { opacity: 1; transform: none; transition-delay: .05s; }
+        .section[data-index="2"] .text-center.visible .sec-title,
+        .section[data-index="5"] .text-center.visible .sec-title,
+        .section[data-index="7"] .text-center.visible .sec-title { opacity: 1; transform: none; transition-delay: .16s; }
+        .section[data-index="2"] .text-center.visible .sec-desc,
+        .section[data-index="5"] .text-center.visible .sec-desc,
+        .section[data-index="7"] .text-center.visible .sec-desc { opacity: 1; transform: none; transition-delay: .3s; }
+        .process-steps::before {
+            transform: scaleX(0); transform-origin: left center;
+            transition: transform 1s cubic-bezier(.22,1,.36,1) .25s;
+        }
+        .process-steps.animate-in::before { transform: scaleX(1); }
+        .section[data-index="5"] .step-circle {
+            opacity: 0; transform: scale(.3);
+            transition: opacity .45s ease, transform .6s cubic-bezier(.34,1.56,.64,1);
+        }
+        .section[data-index="5"] .step.visible .step-circle { opacity: 1; transform: scale(1); }
+        .section[data-index="5"] .step:nth-child(2) .step-circle { transition-delay: .12s; }
+        .section[data-index="5"] .step:nth-child(3) .step-circle { transition-delay: .24s; }
+        .section[data-index="5"] .step:nth-child(4) .step-circle { transition-delay: .36s; }
 
         /* ─── Contact / CTA ─── */
         .qr-box {
@@ -918,7 +1158,7 @@
 
 <!-- ═══ Floating CTA ═══ -->
 <div class="floating-cta" onclick="document.getElementById('contactSection').scrollIntoView({behavior:'smooth'})">
-    💬 立即咨询
+    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z"/><path d="M21 16v2a4 4 0 0 1-4 4h-5"/></svg>立即咨询
 </div>
 
 <div class="fullpage-wrapper" id="fullpage">
@@ -1099,20 +1339,25 @@ gbr = GridSearchCV(GradientBoostingRegressor(),
 gbr.fit(X_train, y_train)
 print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
 
-        <div class="ball ball-1"></div>
-        <div class="ball ball-2"></div>
-        <div class="ball ball-3"></div>
-        <div class="ball ball-4"></div>
-        <div class="ball ball-5"></div>
-        <div class="ball ball-6"></div>
-        <div class="ball ball-7"></div>
-        <div class="ball ball-8"></div>
-        <div class="ball ball-9"></div>
+        <div class="ball-field">
+            <div class="ball ball-1"></div>
+            <div class="ball ball-2"></div>
+            <div class="ball ball-3"></div>
+            <div class="ball ball-4"></div>
+            <div class="ball ball-5"></div>
+            <div class="ball ball-6"></div>
+            <div class="ball ball-7"></div>
+            <div class="ball ball-8"></div>
+            <div class="ball ball-9"></div>
+        </div>
         <div class="container">
             <div class="hero-wrap">
-                <div class="hero-left fade-up">
+                <div class="hero-left">
                     <div class="hero-badge">✦ 专注本科/硕士学术写作</div>
-                    <h1 class="hero-title">让每篇论文<br><em>超越预期</em></h1>
+                    <h1 class="hero-title">
+                        <span class="t-line"><span class="t-line-in">让每篇论文</span></span>
+                        <span class="t-line"><span class="t-line-in"><em>超越预期</em></span></span>
+                    </h1>
                     <div class="hero-desc">
                         覆盖金融、管理、计算机等全学科
                         <span class="rating">★ 4.9 / 5.0</span>
@@ -1124,15 +1369,15 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
                         <li>一对一沟通 · 实时进度追踪</li>
                     </ul>
                     <div class="hero-cta">
-                        <a class="btn-primary" onclick="document.getElementById('contactSection').scrollIntoView({behavior:'smooth'})">💬 免费咨询</a>
+                        <a class="btn-primary" onclick="document.getElementById('contactSection').scrollIntoView({behavior:'smooth'})"><svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z"/><path d="M21 16v2a4 4 0 0 1-4 4h-5"/></svg>免费咨询</a>
                         <a class="btn-outline" onclick="document.getElementById('caseSection').scrollIntoView({behavior:'smooth'})">查看案例</a>
                     </div>
                 </div>
-                <div class="hero-right fade-up">
+                <div class="hero-right">
                     <div class="hero-card">
                         <h3>为什么选择 San</h3>
-                        <div class="hero-stat"><div class="num">500+</div><div class="label">已完成订单</div></div>
-                        <div class="hero-stat"><div class="num">98%</div><div class="label">客户满意度</div></div>
+                        <div class="hero-stat"><div class="num" data-count="500" data-suffix="+">500+</div><div class="label">已完成订单</div></div>
+                        <div class="hero-stat"><div class="num" data-count="98" data-suffix="%">98%</div><div class="label">客户满意度</div></div>
                         <div class="divider"></div>
                         <div>
                             <span class="pill">免费修改</span>
@@ -1146,10 +1391,10 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
         </div>
         <div class="stats-bar">
             <div class="container">
-                <div class="stat-item"><div class="num">500+</div> 完成订单</div>
-                <div class="stat-item"><div class="num">50+</div> 覆盖专业</div>
-                <div class="stat-item"><div class="num">98%</div> 好评率</div>
-                <div class="stat-item"><div class="num">99%</div> 准时交付</div>
+                <div class="stat-item"><div class="num" data-count="500" data-suffix="+">500+</div> 完成订单</div>
+                <div class="stat-item"><div class="num" data-count="50" data-suffix="+">50+</div> 覆盖专业</div>
+                <div class="stat-item"><div class="num" data-count="98" data-suffix="%">98%</div> 好评率</div>
+                <div class="stat-item"><div class="num" data-count="99" data-suffix="%">99%</div> 准时交付</div>
             </div>
         </div>
     </section>
@@ -1206,7 +1451,9 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
                 <p class="sec-desc mx-auto">以下为部分已交付案例（已脱敏处理），每一份都经过严格质量把控。</p>
             </div>
             <div class="collage-grid" id="casesGrid">
-                <!-- 18个拼图框，每框内含9个案例的合成图，共162个案例 -->
+                <div class="collage-box" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_f7c332a3-32fd-47e9-a214-c607f33c374c.png?x-tos-process=image/resize,w_480" alt="案例合集22" onerror="this.outerHTML='<div class=\'collage-placeholder\'>📋 案例 190-198</div>'"><div class="collage-label">案例 190-198</div></div>
+                <div class="collage-box" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/4e82de55-661f-403e-a1ac-23cee19e0a8f-11391915.jpg?x-tos-process=image/resize,w_480" alt="案例合集23" onerror="this.outerHTML='<div class=\'collage-placeholder\'>📋 案例 199-207</div>'"><div class="collage-label">案例 199-207</div></div>
+                <div class="collage-box" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_d06ce26d-9fc0-47c7-dc9d-170b4f82ec38.png?x-tos-process=image/resize,w_480" alt="案例合集24" onerror="this.outerHTML='<div class=\'collage-placeholder\'>📋 案例 208-216</div>'"><div class="collage-label">案例 208-216</div></div>
                 <div class="collage-box" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_e1af2f74-63b5-4716-831d-e4f386f076c2.png?x-tos-process=image/resize,w_480" alt="案例合集01" onerror="this.outerHTML='<div class=\'collage-placeholder\'>📋 案例 01-09</div>'"><div class="collage-label">案例 01-09</div></div>
                 <div class="collage-box" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/4e82de55-661f-403e-a1ac-23cee19e0a8f-11391915.jpg?x-tos-process=image/resize,w_480" alt="案例合集02" onerror="this.outerHTML='<div class=\'collage-placeholder\'>📋 案例 10-18</div>'"><div class="collage-label">案例 10-18</div></div>
                 <div class="collage-box" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_87152522-5334-41f4-803b-ec538ce51cb8.png?x-tos-process=image/resize,w_480" alt="案例合集03" onerror="this.outerHTML='<div class=\'collage-placeholder\'>📋 案例 19-27</div>'"><div class="collage-label">案例 19-27</div></div>
@@ -1225,20 +1472,16 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
                 <div class="collage-box" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_861787d0-3d45-4768-e58f-dc08f8a4b49c.png?x-tos-process=image/resize,w_480" alt="案例合集16" onerror="this.outerHTML='<div class=\'collage-placeholder\'>📋 案例 136-144</div>'"><div class="collage-label">案例 136-144</div></div>
                 <div class="collage-box" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_c543c0e8-0487-4910-cad1-ae3ef4e15905.jpg?x-tos-process=image/resize,w_480" alt="案例合集17" onerror="this.outerHTML='<div class=\'collage-placeholder\'>📋 案例 145-153</div>'"><div class="collage-label">案例 145-153</div></div>
                 <div class="collage-box" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_4a464f59-f8b4-432d-9500-1c134f8895fb.png?x-tos-process=image/resize,w_480" alt="案例合集18" onerror="this.outerHTML='<div class=\'collage-placeholder\'>📋 案例 154-162</div>'"><div class="collage-label">案例 154-162</div></div>
-                <!-- 追加行：复用第一行6张图（乱序），标签递增 -->
                 <div class="collage-box" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_dc036d07-026d-41e3-d57b-5a084b5666e0.png?x-tos-process=image/resize,w_480" alt="案例合集19" onerror="this.outerHTML='<div class=\'collage-placeholder\'>📋 案例 163-171</div>'"><div class="collage-label">案例 163-171</div></div>
                 <div class="collage-box" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_87152522-5334-41f4-803b-ec538ce51cb8.png?x-tos-process=image/resize,w_480" alt="案例合集20" onerror="this.outerHTML='<div class=\'collage-placeholder\'>📋 案例 172-180</div>'"><div class="collage-label">案例 172-180</div></div>
                 <div class="collage-box" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_e1af2f74-63b5-4716-831d-e4f386f076c2.png?x-tos-process=image/resize,w_480" alt="案例合集21" onerror="this.outerHTML='<div class=\'collage-placeholder\'>📋 案例 181-189</div>'"><div class="collage-label">案例 181-189</div></div>
-                <div class="collage-box" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_f7c332a3-32fd-47e9-a214-c607f33c374c.png?x-tos-process=image/resize,w_480" alt="案例合集22" onerror="this.outerHTML='<div class=\'collage-placeholder\'>📋 案例 190-198</div>'"><div class="collage-label">案例 190-198</div></div>
-                <div class="collage-box" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/4e82de55-661f-403e-a1ac-23cee19e0a8f-11391915.jpg?x-tos-process=image/resize,w_480" alt="案例合集23" onerror="this.outerHTML='<div class=\'collage-placeholder\'>📋 案例 199-207</div>'"><div class="collage-label">案例 199-207</div></div>
-                <div class="collage-box" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_d06ce26d-9fc0-47c7-dc9d-170b4f82ec38.png?x-tos-process=image/resize,w_480" alt="案例合集24" onerror="this.outerHTML='<div class=\'collage-placeholder\'>📋 案例 208-216</div>'"><div class="collage-label">案例 208-216</div></div>
             </div>
         </div>
     </section>
 
 
     <!-- ═══ Section 2c: 服务具象化展示 ═══ -->
-    <section class="section section-blue-light" data-index="7">
+    <section class="section section-blue-light section-showcase" data-index="7">
         <div class="container">
             <div class="text-center fade-up">
                 <div class="sec-label">OUR SERVICES</div>
@@ -1247,42 +1490,66 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
             </div>
             <div class="showcase-grid">
                 <div class="showcase-card fade-up">
-                    <img class="showcase-card-img" referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_c14ff1b8-5ba9-4a31-90a2-fb6951b08e90.jpg?x-tos-process=image/resize,w_480" alt="论文修改" onerror="this.style.background='#e0ecff';this.alt='📝 论文修改'">
+                    <img class="showcase-card-img" referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_c14ff1b8-5ba9-4a31-90a2-fb6951b08e90.jpg?x-tos-process=image/resize,w_480" alt="论文修改" onerror="this.style.background='#e0ecff';this.alt='论文修改'">
                     <div class="showcase-card-body">
-                        <div class="sc-icon">📝</div>
-                        <h4>论文修改过程</h4>
+                        <div class="showcase-card-title">
+                            <svg class="sc-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <path d="M6 3.5h7l4 4v13H6zM13 3.5v4h4M9 16l4.7-4.7 2 2-4.7 4.7-2.4.4z"></path>
+                            </svg>
+                            <h4>论文修改过程</h4>
+                        </div>
                         <p>根据导师意见逐轮修改，逻辑梳理、内容补充、结构调整，直到达标为止。</p>
                     </div>
                 </div>
                 <div class="showcase-card fade-up">
-                    <img class="showcase-card-img" referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_29b77738-fb65-4b7a-a54a-1d73933b4b16.jpg?x-tos-process=image/resize,w_480" alt="答辩PPT" onerror="this.style.background='#e0ecff';this.alt='🎯 答辩PPT'">
+                    <img class="showcase-card-img" referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_29b77738-fb65-4b7a-a54a-1d73933b4b16.jpg?x-tos-process=image/resize,w_480" alt="答辩PPT" onerror="this.style.background='#e0ecff';this.alt='答辩PPT'">
                     <div class="showcase-card-body">
-                        <div class="sc-icon">🎯</div>
-                        <h4>答辩PPT展示</h4>
+                        <div class="showcase-card-title">
+                            <svg class="sc-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <circle cx="12" cy="12" r="8"></circle>
+                                <circle cx="12" cy="12" r="4"></circle>
+                                <circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"></circle>
+                            </svg>
+                            <h4>答辩PPT展示</h4>
+                        </div>
                         <p>专业设计答辩PPT，排版精美、逻辑清晰，让您的汇报脱颖而出。</p>
                     </div>
                 </div>
                 <div class="showcase-card fade-up">
-                    <img class="showcase-card-img" referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_7ff351b9-401e-4689-991a-62e685034d81.jpg?x-tos-process=image/resize,w_480" alt="批注讲解" onerror="this.style.background='#e0ecff';this.alt='💬 批注讲解'">
+                    <img class="showcase-card-img" referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_7ff351b9-401e-4689-991a-62e685034d81.jpg?x-tos-process=image/resize,w_480" alt="批注讲解" onerror="this.style.background='#e0ecff';this.alt='批注讲解'">
                     <div class="showcase-card-body">
-                        <div class="sc-icon">💬</div>
-                        <h4>批注讲解论文</h4>
+                        <div class="showcase-card-title">
+                            <svg class="sc-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <path d="M5 5.5h14a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H10l-4 3v-3.2a2 2 0 0 1-2-2v-6.8a2 2 0 0 1 2-2Z"></path>
+                                <path d="M8 11.5h.01M12 11.5h.01M16 11.5h.01"></path>
+                            </svg>
+                            <h4>批注讲解论文</h4>
+                        </div>
                         <p>逐段批注讲解论文内容，帮您理解每个章节的写作逻辑与核心要点。</p>
                     </div>
                 </div>
                 <div class="showcase-card fade-up">
-                    <img class="showcase-card-img" referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_dc218ea6-a6ab-4c71-87fc-15b64c901d72.jpg?x-tos-process=image/resize,w_480" alt="答辩预测" onerror="this.style.background='#e0ecff';this.alt='🔮 答辩预测'">
+                    <img class="showcase-card-img" referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_dc218ea6-a6ab-4c71-87fc-15b64c901d72.jpg?x-tos-process=image/resize,w_480" alt="答辩预测" onerror="this.style.background='#e0ecff';this.alt='答辩预测'">
                     <div class="showcase-card-body">
-                        <div class="sc-icon">🔮</div>
-                        <h4>答辩预测解析</h4>
+                        <div class="showcase-card-title">
+                            <svg class="sc-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <path d="m12 3 1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5z"></path>
+                                <path d="M18.5 16.5v4M16.5 18.5h4"></path>
+                            </svg>
+                            <h4>答辩预测解析</h4>
+                        </div>
                         <p>模拟答辩现场，预测导师提问方向，提前准备应答策略，从容应对。</p>
                     </div>
                 </div>
                 <div class="showcase-card fade-up">
-                    <img class="showcase-card-img" referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_b7abf42d-94cf-44db-b0af-e547f139b4d8.jpg?x-tos-process=image/resize,w_480" alt="AIGC降重" onerror="this.style.background='#e0ecff';this.alt='⚡ AIGC降重'">
+                    <img class="showcase-card-img" referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_b7abf42d-94cf-44db-b0af-e547f139b4d8.jpg?x-tos-process=image/resize,w_480" alt="AIGC降重" onerror="this.style.background='#e0ecff';this.alt='AIGC降重'">
                     <div class="showcase-card-body">
-                        <div class="sc-icon">⚡</div>
-                        <h4>AIGC率降低</h4>
+                        <div class="showcase-card-title">
+                            <svg class="sc-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <path d="M13.5 2 5 13h5l-1.5 9L18 10h-5z"></path>
+                            </svg>
+                            <h4>AIGC率降低</h4>
+                        </div>
                         <p>针对AIGC检测报告精准改写，有效降低AI生成率，确保通过检测。</p>
                     </div>
                 </div>
@@ -1441,7 +1708,12 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
                     <a class="price-btn price-btn-outline" onclick="document.getElementById('contactSection').scrollIntoView({behavior:'smooth'})">获取降重报价</a>
                 </div>
                 <div class="price-card featured fade-up">
-                    <div class="price-badge">🔥 全包无忧</div>
+                    <div class="price-badge">
+                        <svg class="price-badge-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M12 12c2-2.96 0-7-1-8 4 2 8 4.5 8 9.5a7 7 0 1 1-14 0c0-1.5.5-3.5 2-5.5.5 3 1.5 4 3 4 1.5 0 2.5-1.5 2-4Z"></path>
+                        </svg>
+                        <span>全包无忧</span>
+                    </div>
                     <h3>全包套餐</h3>
                     <div class="plan-tag">毕业全程 · 省心首选</div>
                     <div class="price-note">含答辩 + 答辩后修改</div>
@@ -1656,9 +1928,10 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
     const animObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
+                var delay = entry.target.closest('.collage-grid') ? index * 50 : index * 120;
                 setTimeout(() => {
                     entry.target.classList.add('animate-in');
-                }, index * 120);
+                }, delay);
                 animObserver.unobserve(entry.target);
             }
         });
@@ -1666,18 +1939,42 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
 
     document.querySelectorAll(
         '.service-icon, .service-card h3, .service-card p, ' +
-        '.collage-box, .ppt-card, .showcase-card, .price-card, .step, .qr-box, .contact-row-item'
+        '.collage-box, .ppt-card, .showcase-card, .price-card, .step, .qr-box, .contact-row-item, .process-steps'
     ).forEach(el => {
         animObserver.observe(el);
     });
 
     // ─── 安全网: 移动端2秒后强制显示所有隐藏元素 ───
     setTimeout(() => {
-        document.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible'));
+        // 仅强制首屏内元素显示，其余交给滚动触发的入场动画
+        document.querySelectorAll('.fade-up').forEach(el => {
+            if (el.getBoundingClientRect().top < window.innerHeight + 100) el.classList.add('visible');
+        });
         document.querySelectorAll('.service-icon, .service-card h3, .service-card p, ' +
             '.collage-box, .ppt-card, .showcase-card, .price-card, .step, .qr-box, .contact-row-item'
-        ).forEach(el => el.classList.add('animate-in'));
+        ).forEach(el => {
+            if (el.getBoundingClientRect().top < window.innerHeight + 100) el.classList.add('animate-in');
+        });
     }, 2000);
+
+    // ─── Hero 数字滚动（与开场动画同步） ───
+    (function() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        document.querySelectorAll('.section-hero [data-count]').forEach(function(el) {
+            var target = parseFloat(el.getAttribute('data-count'));
+            var suffix = el.getAttribute('data-suffix') || '';
+            if (isNaN(target)) return;
+            var dur = 1300, start = null;
+            function step(ts) {
+                if (!start) start = ts;
+                var p = Math.min((ts - start) / dur, 1);
+                var eased = 1 - Math.pow(1 - p, 3);
+                el.textContent = Math.round(target * eased) + suffix;
+                if (p < 1) requestAnimationFrame(step);
+            }
+            setTimeout(function() { requestAnimationFrame(step); }, 1000);
+        });
+    })();
 
     function closeMenu() {
         hamburger.classList.remove('active');
