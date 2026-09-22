@@ -659,6 +659,17 @@
             background: #e8f0fe; position: relative;
             transition: transform .2s, box-shadow .2s;
         }
+        /* Palmer 风格：整墙沉降入场 + 可抓拽弹性（原生实现，零依赖） */
+        .section[data-index="2"] .collage-grid {
+            transform: scale(.965); opacity: .55;
+            transition: transform 1.1s cubic-bezier(.16,1,.3,1) .1s, opacity 1s ease .1s;
+        }
+        .section[data-index="2"] .text-center.visible ~ .collage-grid { transform: scale(1); opacity: 1; }
+        .collage-grid { cursor: grab; }
+        .collage-grid.grabbing { cursor: grabbing; }
+        .collage-grid.grabbing .collage-box { transform: none !important; }
+        .collage-box img { -webkit-user-drag: none; user-select: none; }
+
         .collage-box::after {
             content: ''; position: absolute; inset: 0; z-index: 1; border-radius: inherit; pointer-events: none;
             background:
@@ -1928,7 +1939,7 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
     const animObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
-                var delay = entry.target.closest('.collage-grid') ? index * 50 : index * 120;
+                var delay = entry.target.closest('.collage-grid') ? Math.floor(Math.random()*700) : index * 120;
                 setTimeout(() => {
                     entry.target.classList.add('animate-in');
                 }, delay);
@@ -1974,6 +1985,51 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
             }
             setTimeout(function() { requestAnimationFrame(step); }, 1000);
         });
+    })();
+
+    // ─── 案例图墙：可抓拽弹性（Palmer 风格，原生实现） ───
+    (function() {
+        var grid = document.getElementById('casesGrid');
+        if (!grid || !window.matchMedia('(pointer:fine)').matches) return;
+        var MAXX = 70, MAXY = 42;
+        var cur = {x:0,y:0}, tgt = {x:0,y:0}, last = {x:0,y:0};
+        var dragging = false, moved = 0, raf = null;
+        function tick() {
+            cur.x += (tgt.x - cur.x) * .14;
+            cur.y += (tgt.y - cur.y) * .14;
+            grid.style.transform = 'translate3d(' + cur.x.toFixed(2) + 'px,' + cur.y.toFixed(2) + 'px,0)';
+            if (dragging || Math.abs(tgt.x - cur.x) > .1 || Math.abs(tgt.y - cur.y) > .1) {
+                raf = requestAnimationFrame(tick);
+            } else { raf = null; }
+        }
+        function wake() { if (!raf) raf = requestAnimationFrame(tick); }
+        grid.addEventListener('pointerdown', function(e) {
+            if (e.button !== 0) return;
+            dragging = true; moved = 0; last = {x: e.clientX, y: e.clientY};
+            grid.classList.add('grabbing');
+            try { grid.setPointerCapture(e.pointerId); } catch(err) {}
+            wake();
+        });
+        grid.addEventListener('pointermove', function(e) {
+            if (!dragging) return;
+            var dx = e.clientX - last.x, dy = e.clientY - last.y;
+            last = {x: e.clientX, y: e.clientY};
+            moved += Math.abs(dx) + Math.abs(dy);
+            tgt.x = Math.max(-MAXX, Math.min(MAXX, tgt.x + dx));
+            tgt.y = Math.max(-MAXY, Math.min(MAXY, tgt.y + dy));
+        });
+        function release() {
+            if (!dragging) return;
+            dragging = false;
+            grid.classList.remove('grabbing');
+            tgt = {x: 0, y: 0};   // 松手弹性回中
+            wake();
+        }
+        grid.addEventListener('pointerup', release);
+        grid.addEventListener('pointercancel', release);
+        grid.addEventListener('click', function(e) {
+            if (moved > 8) { e.stopPropagation(); e.preventDefault(); }   // 拖动不误触灯箱
+        }, true);
     })();
 
     function closeMenu() {
