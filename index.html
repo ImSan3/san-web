@@ -807,12 +807,19 @@
         .showcase-card-title { display: flex; align-items: center; gap: 8px; min-width: 0; }
         .showcase-card-link { cursor: pointer; }
         .showcase-card-cta {
-            display: inline-flex; align-items: center; gap: 4px;
-            margin-top: 9px; padding: 5px 13px; border-radius: 999px;
-            background: #fff; color: #0a2540; font-size: 12px; font-weight: 700;
-            box-shadow: 0 6px 16px rgba(0, 20, 40, .28);
-            transition: transform .18s ease, box-shadow .18s ease;
+            display: flex; width: max-content; align-items: center;
+            margin: 9px auto 0; padding: 5px 13px; border-radius: 999px;
+            background: #fff; font-size: 12px; font-weight: 700;
+            box-shadow: 0 6px 16px rgba(29,79,174,.28);
+            transition: transform .18s ease;
         }
+        .showcase-card-cta .cta-txt {
+            background: linear-gradient(90deg,#1d4fae 0%,#1d4fae 40%,#2a6ec9 58%,#3b8bd6 76%,#4a9ae0 100%);
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent;
+        }
+        .showcase-card-link:hover .showcase-card-cta { transform: translateX(3px); }
+        .showcase-card-link:hover .showcase-card-cta { box-shadow: 0 8px 20px rgba(29,79,174,.4); }
         .showcase-card-link:hover .showcase-card-cta { transform: translateX(3px); box-shadow: 0 8px 20px rgba(0, 20, 40, .38); }
         .showcase-card-body .sc-icon {
             display: inline-flex; align-items: center; justify-content: center;
@@ -843,7 +850,7 @@
             .showcase-card-body .sc-icon { width: 26px; height: 26px; flex: 0 0 26px; padding: 5px; }
             .showcase-card-body h4, .showcase-card:first-child .showcase-card-body h4 { font-size: 16px; }
             .showcase-card-body p { font-size: 11px; line-height: 1.45; margin-top: 6px; }
-            .showcase-card-cta { font-size: 11px; padding: 4px 11px; margin-top: 7px; }
+            .showcase-card-cta { font-size: 11px; padding: 4px 11px; margin: 7px auto 0; }
         }
         @media (prefers-reduced-transparency: reduce) {
             .showcase-card-body { background: rgba(14, 34, 52, .92); backdrop-filter: none; -webkit-backdrop-filter: none; }
@@ -1763,7 +1770,7 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
                             <h4>AIGC率降低</h4>
                         </div>
                         <p>针对AIGC检测报告精准改写，有效降低AI生成率，确保通过检测。</p>
-                        <span class="showcase-card-cta">前往降AI服务 →</span>
+                        <span class="showcase-card-cta"><span class="cta-txt">前往降AI服务 →</span></span>
                     </div>
                 </div>
             </div>
