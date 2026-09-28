@@ -615,11 +615,11 @@
         .service-card p.animate-in { opacity: 1; transform: translateY(0); }
 
         /* ─── Entrance Animations for All Sections ─── */
-        .collage-box, .ppt-card, .showcase-card {
+        .collage-box, .ppt-card, .showcase-card, .thesis-page {
             opacity: 0; transform: scale(0.8);
             transition: opacity 0.78s ease, transform 0.78s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .collage-box.animate-in, .ppt-card.animate-in, .showcase-card.animate-in { opacity: 1; transform: scale(1); }
+        .collage-box.animate-in, .ppt-card.animate-in, .showcase-card.animate-in, .thesis-page.animate-in { opacity: 1; transform: scale(1); }
 
         .price-card {
             opacity: 0; transform: translateY(40px);
@@ -793,6 +793,15 @@
         }
         .showcase-card:hover .showcase-card-body { transform: translate(-50%, -3px); background: linear-gradient(135deg, rgba(255,255,255,.28), rgba(255,255,255,.11)); }
         .showcase-card-title { display: flex; align-items: center; gap: 8px; min-width: 0; }
+        .showcase-card-link { cursor: pointer; }
+        .showcase-card-cta {
+            display: inline-flex; align-items: center; gap: 4px;
+            margin-top: 9px; padding: 5px 13px; border-radius: 999px;
+            background: #fff; color: #0a2540; font-size: 12px; font-weight: 700;
+            box-shadow: 0 6px 16px rgba(0, 20, 40, .28);
+            transition: transform .18s ease, box-shadow .18s ease;
+        }
+        .showcase-card-link:hover .showcase-card-cta { transform: translateX(3px); box-shadow: 0 8px 20px rgba(0, 20, 40, .38); }
         .showcase-card-body .sc-icon {
             display: inline-flex; align-items: center; justify-content: center;
             width: 32px; height: 32px; flex: 0 0 32px; margin: 0; border-radius: 50%;
@@ -822,6 +831,7 @@
             .showcase-card-body .sc-icon { width: 26px; height: 26px; flex: 0 0 26px; padding: 5px; }
             .showcase-card-body h4, .showcase-card:first-child .showcase-card-body h4 { font-size: 16px; }
             .showcase-card-body p { font-size: 11px; line-height: 1.45; margin-top: 6px; }
+            .showcase-card-cta { font-size: 11px; padding: 4px 11px; margin-top: 7px; }
         }
         @media (prefers-reduced-transparency: reduce) {
             .showcase-card-body { background: rgba(14, 34, 52, .92); backdrop-filter: none; -webkit-backdrop-filter: none; }
@@ -832,39 +842,216 @@
             .showcase-card-img, .showcase-card:hover .showcase-card-img { transition: none; transform: none; }
         }
 
-        /* ─── Testimonials wall (口碑) ─── */
-        .voices-head { text-align: center; }
-        .voices-head .label { font-size: 17px; letter-spacing: 5px; color: #5b9eff; font-weight: 700; }
-        .voices-head h2 { font-size: clamp(24px,3.4vw,34px); font-weight: 900; margin: 10px 0 10px; font-family: 'Didot', 'Times New Roman', serif; color: #021c31; }
-        .voices-head p { font-size: 17px; color: #6b7a8f; max-width: 760px; margin: 0 auto; line-height: 1.8; }
-        .voices-wall { column-width: 280px; column-gap: 14px; margin-top: clamp(28px,4vw,48px); }
-        .voice-card {
-            position: relative; overflow: hidden;
-            break-inside: avoid; margin: 0 0 14px; padding: 12px;
-            display: flex; flex-direction: column; gap: 10px;
-            background: #f2f7fe; border: 1px solid #dfeafa; border-radius: 14px;
-            box-shadow: 0 8px 30px rgba(5,77,136,.06);
-            transition: transform .2s, box-shadow .2s; color: #1c2b3e;
+        /* ─── 论文整本展示（Thesis showcase） ─── */
+        .thesis-head { text-align: center; }
+        .thesis-head .label { font-size: 17px; letter-spacing: 5px; color: #5b9eff; font-weight: 700; }
+        .thesis-head h2 { font-size: clamp(24px,3.4vw,34px); font-weight: 900; margin: 10px 0 10px; font-family: 'Didot', 'Times New Roman', serif; color: #021c31; }
+        .thesis-head p { font-size: 17px; color: #6b7a8f; max-width: 760px; margin: 0 auto; line-height: 1.8; }
+        .thesis-paper-bar {
+            display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
+            gap: 8px; margin: clamp(16px,2.4vw,26px) auto 0; max-width: 1180px;
         }
-        .voice-card:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(5,77,136,.12); }
-        .voice-stars { font-size: 13px; color: #fb8500; margin-bottom: 8px; }
-        .voice-text { font-family: 'Didot', 'Bodoni MT', 'Songti SC', 'STSong', 'SimSun', serif; font-size: 17px; line-height: 1.7; color: #fff; margin: 0 0 7px; font-weight: 800; -webkit-text-stroke: 1px #135dcd; paint-order: stroke fill; text-shadow: 1px 1px 0 rgba(12,40,130,.85); }
-        .voice-head { display: flex; align-items: center; justify-content: center; gap: 14px; }
-        .voice-tag {
-            display: inline-block; padding: 2px 9px;
-            border-radius: 20px; background: #e8f0fe; color: #135dcd; font-size: 11px; font-weight: 600;
+        .thesis-title-chip {
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            padding: 7px 15px 7px 12px; border-radius: 10px;
+            background: rgba(19,93,205,.07); color: #0a2540;
+            border: 1px solid rgba(19,93,205,.14);
+            font-size: 13.5px; font-weight: 700; letter-spacing: .3px;
         }
-        .voice-avatar {
-            width: 40px; height: 40px; border-radius: 50%; flex: 0 0 auto;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 15px; font-weight: 700; color: #fff; overflow: hidden;
-            box-shadow: 0 0 0 2px rgba(255,255,255,.9), 0 0 10px rgba(19,93,205,.6), 0 0 20px rgba(19,93,205,.35);
+        .thesis-title-chip::before {
+            content: ''; width: 4px; height: 14px; border-radius: 2px;
+            background: #135dcd; flex: none;
         }
-        .voice-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
-        .voice-name { font-size: 14px; font-weight: 700; color: #0a2540; }
-        .voice-handle { font-size: 13px; color: #8a97a8; }
-        .voice-shot { cursor: zoom-in; }
-        .voice-shot img { width: 70%; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 4px 14px rgba(5,77,136,.22); }
+        .thesis-chip {
+            display: inline-flex; align-items: center; padding: 7px 2px;
+            border: 0; border-radius: 0; background: transparent;
+            color: #6b7a8f; font-size: 12.5px; font-weight: 600;
+        }
+        .thesis-chip + .thesis-chip::before {
+            content: '·'; margin: 0 10px 0 6px; color: #b8c6da; font-weight: 700;
+        }
+        /* 学科导航 + 层级面板 */
+        .subject-bar {
+            display: grid; grid-template-columns: repeat(9, 1fr); gap: 8px;
+            margin: clamp(18px,2.6vw,30px) auto 0; max-width: 1180px;
+        }
+        .subject-card {
+            display: flex; flex-direction: column; align-items: center; gap: 3px;
+            padding: 10px 6px 9px; border: 1px solid #d8e4f6; border-radius: 12px;
+            background: #fff; color: #0a2540; font-size: 14px; font-weight: 700;
+            font-family: inherit; cursor: pointer;
+            transition: transform .18s ease, border-color .18s ease, background .18s ease, color .18s ease, box-shadow .18s ease;
+        }
+        .subject-card .subject-count { font-size: 11px; font-weight: 600; color: #8a97a8; }
+        .subject-card:hover { transform: translateY(-2px); border-color: rgba(19,93,205,.45); box-shadow: 0 8px 20px rgba(5,77,136,.10); }
+        .subject-card.active {
+            background: #0a2540; border-color: #0a2540; color: #fff;
+            box-shadow: 0 10px 24px rgba(2,28,49,.22);
+        }
+        .subject-card.active .subject-count { color: rgba(255,255,255,.75); }
+        .thesis-panels { display: grid; }
+        .thesis-panel {
+            grid-area: 1 / 1; min-width: 0; display: flex; flex-direction: column;
+            opacity: 0; transform: translateY(10px); visibility: hidden; pointer-events: none;
+            transition: opacity .25s ease, transform .25s ease, visibility .25s ease;
+        }
+        .thesis-panel.active { opacity: 1; transform: none; visibility: visible; pointer-events: auto; }
+        .subject-empty {
+            flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+            min-height: 220px; margin-top: clamp(14px,2vw,22px);
+            border: 1.5px dashed #c9d8ef; border-radius: 14px; background: #fbfdff;
+            text-align: center; padding: 24px;
+        }
+        .subject-empty strong { font-size: 15px; color: #0a2540; }
+        .subject-empty p { margin: 0; font-size: 13px; color: #8a97a8; }
+        .subject-empty button {
+            margin-top: 6px; padding: 8px 18px; border: 0; border-radius: 999px;
+            background: #135dcd; color: #fff; font-size: 13px; font-weight: 700; cursor: pointer;
+            transition: transform .18s ease, box-shadow .18s ease;
+        }
+        .subject-empty button:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(19,93,205,.3); }
+        /* 子分类（学科内细分） */
+        .sub-bar {
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 8px;
+            margin-top: clamp(14px,2vw,22px);
+        }
+        .sub-card {
+            display: inline-flex; align-items: baseline; gap: 6px;
+            padding: 7px 16px; border: 1px solid #c3d6f0; border-radius: 999px;
+            background: #fff; color: #0a2540; font-size: 13px; font-weight: 700;
+            font-family: inherit; cursor: pointer;
+            transition: transform .18s ease, border-color .18s ease, background .18s ease, color .18s ease, box-shadow .18s ease;
+        }
+        .sub-card .sub-count { font-size: 11px; font-weight: 600; color: #8a97a8; }
+        .sub-card:hover { transform: translateY(-1px); border-color: rgba(19,93,205,.45); }
+        .sub-card.active {
+            background: #135dcd; border-color: #135dcd; color: #fff;
+            box-shadow: 0 8px 18px rgba(19,93,205,.30);
+        }
+        .sub-card.active .sub-count { color: rgba(255,255,255,.8); }
+        .sub-panels { display: grid; }
+        .sub-panel {
+            grid-area: 1 / 1; min-width: 0; display: flex; flex-direction: column;
+            opacity: 0; transform: translateY(8px); visibility: hidden; pointer-events: none;
+            transition: opacity .22s ease, transform .22s ease, visibility .22s ease;
+        }
+        .sub-panel.active { opacity: 1; transform: none; visibility: visible; pointer-events: auto; }
+        .thesis-panel:not(.active) .sub-panel { visibility: hidden; pointer-events: none; }
+        .sub-empty {
+            flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+            min-height: 150px; margin-top: 14px;
+            border: 1.5px dashed #c9d8ef; border-radius: 14px; background: #fbfdff;
+            text-align: center; padding: 20px;
+        }
+        .sub-empty strong { font-size: 14px; color: #0a2540; }
+        .sub-empty p { margin: 0; font-size: 12.5px; color: #8a97a8; }
+        .sub-empty button {
+            margin-top: 4px; padding: 7px 16px; border: 0; border-radius: 999px;
+            background: #135dcd; color: #fff; font-size: 12.5px; font-weight: 700; cursor: pointer;
+            transition: transform .18s ease, box-shadow .18s ease;
+        }
+        .sub-empty button:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(19,93,205,.3); }
+        .sub-panel .thesis-paper-bar { margin-top: 14px; }
+        .thesis-rail-head {
+            display: flex; align-items: center; justify-content: space-between; gap: 14px;
+            margin: clamp(18px,2.6vw,30px) 1px 10px;
+        }
+        .thesis-rail-title { display: flex; align-items: baseline; gap: 9px; min-width: 0; }
+        .thesis-rail-title strong { font-size: 14px; font-weight: 800; color: #0a2540; }
+        .thesis-rail-title span, .thesis-rail-hint { color: #8a97a8; font-size: 12.5px; }
+        .thesis-rail-btns { display: flex; gap: 6px; flex: 0 0 auto; }
+        .thesis-rail-btn {
+            display: grid; place-items: center; width: 30px; height: 30px; padding: 0;
+            border: 1px solid #d8e4f6; border-radius: 8px; background: #fff; color: #43506a;
+            font-size: 18px; line-height: 1; cursor: pointer;
+            transition: transform .18s ease, border-color .18s ease, color .18s ease;
+        }
+        .thesis-rail-btn:hover { transform: translateY(-1px); border-color: rgba(19,93,205,.5); color: #135dcd; }
+        .thesis-rail-btn:active { transform: translateY(0) scale(.94); border-color: rgba(19,93,205,.55); color: #135dcd; }
+        .thesis-rail-btn:focus-visible { outline: 2px solid rgba(19,93,205,.45); outline-offset: 2px; }
+        .thesis-rail {
+            --page-w: clamp(150px, 24vh, 240px);
+            display: flex; gap: 12px; overflow-x: auto; padding: 2px 1px 14px;
+            scroll-behavior: smooth; scroll-snap-type: x proximity; overscroll-behavior-inline: contain;
+            cursor: grab; scrollbar-width: thin; scrollbar-color: rgba(61,79,110,.3) transparent;
+        }
+        .thesis-rail.grabbing { cursor: grabbing; scroll-snap-type: none; scroll-behavior: auto; user-select: none; }
+        .thesis-rail.grabbing .thesis-page { transform: none !important; }
+        .thesis-page img { -webkit-user-drag: none; user-select: none; }
+        .thesis-page {
+            position: relative; flex: 0 0 var(--page-w); overflow: hidden; margin: 0;
+            border: 1px solid #dfeafa; border-radius: 10px; background: #fff;
+            box-shadow: 0 6px 18px rgba(5,77,136,.08);
+            scroll-snap-align: start; cursor: zoom-in;
+        }
+        .thesis-page:hover {
+            transform: translateY(-4px);
+            border-color: rgba(19,93,205,.45);
+            box-shadow: 0 14px 30px rgba(5,77,136,.16);
+        }
+        .thesis-page img {
+            display: block; width: 100%; height: auto;
+            user-select: none; -webkit-user-drag: none;
+        }
+        .thesis-page figcaption {
+            position: absolute; right: 6px; bottom: 6px; padding: 2px 8px;
+            border-radius: 999px; background: rgba(2,28,49,.72); color: #fff;
+            font-size: 10.5px; line-height: 1.4;
+        }
+        /* 论文放大阅读器 */
+        .thesis-viewer {
+            position: fixed; inset: 0; z-index: 10000;
+            display: grid; grid-template-columns: 52px minmax(0,1fr) 52px;
+            align-items: center; gap: 12px; padding: 20px;
+            background: rgba(3,8,17,.96);
+            opacity: 0; visibility: hidden; pointer-events: none;
+            transition: opacity .2s ease, visibility .2s ease;
+        }
+        .thesis-viewer.open { opacity: 1; visibility: visible; pointer-events: auto; }
+        .thesis-viewer-stage {
+            position: relative; display: grid; place-items: center;
+            min-width: 0; height: calc(100vh - 40px);
+        }
+        .thesis-viewer-stage img {
+            display: block; max-width: 100%; max-height: calc(100vh - 96px);
+            object-fit: contain; border-radius: 6px; background: #fff;
+            box-shadow: 0 24px 70px rgba(0,0,0,.45);
+        }
+        .thesis-viewer-count {
+            position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%);
+            padding: 5px 12px; border-radius: 999px; background: rgba(2,28,49,.8);
+            color: #fff; font-size: 12.5px; white-space: nowrap;
+        }
+        .thesis-viewer-tip {
+            position: absolute; top: 24px; left: 50%; transform: translateX(-50%);
+            padding: 5px 12px; border-radius: 999px; background: rgba(2,28,49,.55);
+            color: rgba(255,255,255,.75); font-size: 12px; white-space: nowrap;
+        }
+        .thesis-viewer-btn {
+            display: grid; place-items: center; width: 46px; height: 46px; padding: 0;
+            border: 1px solid rgba(255,255,255,.26); border-radius: 50%;
+            background: rgba(255,255,255,.1); color: #fff; font-size: 28px; line-height: 1;
+            cursor: pointer; transition: background .18s ease, transform .18s ease;
+        }
+        .thesis-viewer-btn:hover { background: rgba(255,255,255,.22); transform: scale(1.06); }
+        .thesis-viewer-close { position: absolute; top: 16px; right: 18px; z-index: 1; font-size: 22px; }
+        @media (max-width: 600px) {
+            .thesis-paper-bar { gap: 6px; }
+            .thesis-title-chip { width: 100%; font-size: 12.5px; padding: 7px 10px 7px 8px; }
+            .thesis-chip { font-size: 11.5px; padding: 6px 2px; }
+            .thesis-chip + .thesis-chip::before { margin: 0 7px 0 3px; }
+            .thesis-rail-hint { display: none; }
+            .subject-bar { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+            .subject-card { font-size: 12.5px; padding: 8px 4px 7px; border-radius: 10px; }
+            .subject-card .subject-count { font-size: 10px; }
+            .subject-empty { min-height: 180px; }
+            .thesis-rail { --page-w: 56vw; gap: 10px; }
+            .thesis-viewer { grid-template-columns: 40px minmax(0,1fr) 40px; gap: 6px; padding: 10px; }
+            .thesis-viewer-stage { height: calc(100vh - 20px); }
+            .thesis-viewer-stage img { max-height: calc(100vh - 68px); }
+            .thesis-viewer-btn { width: 38px; height: 38px; font-size: 24px; }
+            .thesis-viewer-tip { display: none; }
+        }
         /* Lightbox */
         .lightbox {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -1136,7 +1323,7 @@
             <a class="nav-link" data-target="0">首页</a>
             <a class="nav-link" data-target="1">服务项目</a>
             <a class="nav-link" data-target="2">案例展示</a>
-            <a class="nav-link" data-target="3">口碑</a>
+            <a class="nav-link" data-target="3">作品</a>
             <a class="nav-link" data-target="4">方案</a>
             <a class="nav-link" data-target="5">流程</a>
             <a class="nav-link" data-target="6">联系我</a>
@@ -1150,7 +1337,7 @@
     <a class="nav-link" data-target="0">首页</a>
     <a class="nav-link" data-target="1">服务项目</a>
     <a class="nav-link" data-target="2">案例展示</a>
-    <a class="nav-link" data-target="3">口碑</a>
+    <a class="nav-link" data-target="3">作品</a>
     <a class="nav-link" data-target="4">方案</a>
     <a class="nav-link" data-target="5">流程</a>
     <a class="nav-link" data-target="6">联系我</a>
@@ -1552,7 +1739,7 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
                         <p>模拟答辩现场，预测导师提问方向，提前准备应答策略，从容应对。</p>
                     </div>
                 </div>
-                <div class="showcase-card fade-up">
+                <div class="showcase-card fade-up showcase-card-link" onclick="window.open('https://imsan3.github.io/san-ai','_blank','noopener')" title="前往降AI服务">
                     <img class="showcase-card-img" referrerpolicy="no-referrer" src="https://document-image.mubu.com/document_image/11391915_b7abf42d-94cf-44db-b0af-e547f139b4d8.jpg?x-tos-process=image/resize,w_480" alt="AIGC降重" onerror="this.style.background='#e0ecff';this.alt='AIGC降重'">
                     <div class="showcase-card-body">
                         <div class="showcase-card-title">
@@ -1562,6 +1749,7 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
                             <h4>AIGC率降低</h4>
                         </div>
                         <p>针对AIGC检测报告精准改写，有效降低AI生成率，确保通过检测。</p>
+                        <span class="showcase-card-cta">前往降AI服务 →</span>
                     </div>
                 </div>
             </div>
@@ -1571,124 +1759,409 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
     <!-- ═══ Section: 口碑 testimonials ═══ -->
     <section class="section section-white" id="voicesSection" data-index="3">
         <div class="container">
-            <div class="voices-head fade-up">
-                <div class="label">VOICES</div>
-                <h2>听听大家怎么说</h2>
-                <p>从聊天记录里挑的一句原话，做了脱敏。</p>
+            <div class="thesis-head fade-up">
+                <div class="label">WORKS</div>
+                <h2>论文作品库，点开学科就翻</h2>
+                <p>真实交付的脱敏论文，已收录 13 篇；点任意一页放大翻看。</p>
             </div>
-                        <div class="voices-wall">
-<figure class="voice-card">
-                    <div class="voice-head">
-                        <span class="voice-avatar" data-in="李" style="background:#135dcd;"><img src="https://api2.mubu.com/v3/document_image/11391915_ad95b6b6-726e-45f5-d9b8-b1bd87fd4a9a.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span>
-                        <span class="voice-tag">全包套餐</span>
-                        <span class="voice-handle">2026 届</span>
-                        <span class="voice-name">金融学 · 本科</span>
-                    </div>
-                    <div class="voice-shot" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" loading="lazy" alt="聊天记录截图" src="https://api2.mubu.com/v3/document_image/11391915_bac12901-bfa6-4fab-b3e7-e77875022159.jpg?x-tos-process=image/resize,w_800" onerror="this.parentNode.style.display='none'"></div>
-                </figure>
-<figure class="voice-card">
-                    <div class="voice-head">
-                        <span class="voice-avatar" data-in="陈" style="background:#0d9f4e;"><img src="https://api2.mubu.com/v3/document_image/11391915_f0599b55-0dfc-4165-a15b-69acbf5a0d0c.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span>
-                        <span class="voice-tag">降重 + 降AI率</span>
-                        <span class="voice-handle">2025 届</span>
-                        <span class="voice-name">管理学 · 硕士</span>
-                    </div>
-                    <div class="voice-shot" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" loading="lazy" alt="聊天记录截图" src="https://api2.mubu.com/v3/document_image/11391915_378d3616-e376-4994-b108-27f0e1e8a5f3.jpg?x-tos-process=image/resize,w_800" onerror="this.parentNode.style.display='none'"></div>
-                </figure>
-<figure class="voice-card">
-                    <div class="voice-head">
-                        <span class="voice-avatar" data-in="王" style="background:#7b2fbf;"><img src="https://api2.mubu.com/v3/document_image/11391915_b3932164-63a6-41c3-80fa-6f916318bfd0.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span>
-                        <span class="voice-tag">全包套餐</span>
-                        <span class="voice-handle">2025 届</span>
-                        <span class="voice-name">计算机 · 本科</span>
-                    </div>
-                    <div class="voice-shot" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" loading="lazy" alt="聊天记录截图" src="https://api2.mubu.com/v3/document_image/11391915_0b513e65-8229-478c-dba5-b682d02c360f.jpg?x-tos-process=image/resize,w_800" onerror="this.parentNode.style.display='none'"></div>
-                </figure>
-<figure class="voice-card">
-                    <div class="voice-head">
-                        <span class="voice-avatar" data-in="赵" style="background:#b26a00;"><img src="https://api2.mubu.com/v3/document_image/11391915_bc76d93e-27a5-4f1c-9fb3-e386b65a13e6.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span>
-                        <span class="voice-tag">基础套餐</span>
-                        <span class="voice-handle">2026 届</span>
-                        <span class="voice-name">教育学 · 专科</span>
-                    </div>
-                    <div class="voice-shot" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" loading="lazy" alt="聊天记录截图" src="https://api2.mubu.com/v3/document_image/11391915_c76d7e8d-ebe6-4068-da6e-18bf64d8e982.jpg?x-tos-process=image/resize,w_800" onerror="this.parentNode.style.display='none'"></div>
-                </figure>
-<figure class="voice-card">
-                    <div class="voice-head">
-                        <span class="voice-avatar" data-in="周" style="background:#c2185b;"><img src="https://api2.mubu.com/v3/document_image/11391915_227afa77-a87c-495b-8de6-c6180702ebff.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span>
-                        <span class="voice-tag">答辩 PPT + 预测</span>
-                        <span class="voice-handle">2026 届</span>
-                        <span class="voice-name">会计学 · 本科</span>
-                    </div>
-                    <div class="voice-shot" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" loading="lazy" alt="聊天记录截图" src="https://api2.mubu.com/v3/document_image/11391915_f99de7d6-8fe8-441d-c126-0dae4377c17e.jpg?x-tos-process=image/resize,w_800" onerror="this.parentNode.style.display='none'"></div>
-                </figure>
-<figure class="voice-card">
-                    <div class="voice-head">
-                        <span class="voice-avatar" data-in="黄" style="background:#00695c;"><img src="https://api2.mubu.com/v3/document_image/11391915_bc294bcd-9421-4cd5-95ab-a393f4ad2fb8.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span>
-                        <span class="voice-tag">全包套餐</span>
-                        <span class="voice-handle">2026 届</span>
-                        <span class="voice-name">国际经济与贸易 · 本科</span>
-                    </div>
-                    <div class="voice-shot" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" loading="lazy" alt="聊天记录截图" src="https://api2.mubu.com/v3/document_image/11391915_7cc2222c-adcf-4084-bd11-46b3205ba1be.jpg?x-tos-process=image/resize,w_800" onerror="this.parentNode.style.display='none'"></div>
-                </figure>
-<figure class="voice-card">
-                    <div class="voice-head">
-                        <span class="voice-avatar" data-in="吴" style="background:#135dcd;"><img src="https://api2.mubu.com/v3/document_image/11391915_403d1c62-fd93-4405-9d49-69631ea25915.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span>
-                        <span class="voice-tag">论文降重</span>
-                        <span class="voice-handle">2025 届</span>
-                        <span class="voice-name">汉语言文学 · 本科</span>
-                    </div>
-                    <div class="voice-shot" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" loading="lazy" alt="聊天记录截图" src="https://api2.mubu.com/v3/document_image/11391915_4d0470db-9249-4c4b-99ae-62ae87394be0.jpg?x-tos-process=image/resize,w_800" onerror="this.parentNode.style.display='none'"></div>
-                </figure>
-<figure class="voice-card">
-                    <div class="voice-head">
-                        <span class="voice-avatar" data-in="林" style="background:#0d9f4e;"><img src="https://api2.mubu.com/v3/document_image/11391915_845ef5ff-081a-4deb-fe52-4145ee12fe35.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span>
-                        <span class="voice-tag">查重 + AIGC率</span>
-                        <span class="voice-handle">2025 届</span>
-                        <span class="voice-name">医学 · 硕士</span>
-                    </div>
-                    <div class="voice-shot" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" loading="lazy" alt="聊天记录截图" src="https://api2.mubu.com/v3/document_image/11391915_1fa3908e-8fe5-43af-aaac-a2b4604f60b2.jpg?x-tos-process=image/resize,w_800" onerror="this.parentNode.style.display='none'"></div>
-                </figure>
-<figure class="voice-card">
-                    <div class="voice-head">
-                        <span class="voice-avatar" data-in="徐" style="background:#7b2fbf;"><img src="https://api2.mubu.com/v3/document_image/11391915_ffc17a1a-a15a-428a-a4a1-61ad5b3c2520.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span>
-                        <span class="voice-tag">全包套餐</span>
-                        <span class="voice-handle">2026 届</span>
-                        <span class="voice-name">法学 · 本科</span>
-                    </div>
-                    <div class="voice-shot" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" loading="lazy" alt="聊天记录截图" src="https://api2.mubu.com/v3/document_image/11391915_b46dd641-d388-49d5-ece1-de18b89d2cd9.jpg?x-tos-process=image/resize,w_800" onerror="this.parentNode.style.display='none'"></div>
-                </figure>
-<figure class="voice-card">
-                    <div class="voice-head">
-                        <span class="voice-avatar" data-in="孙" style="background:#b26a00;"><img src="https://api2.mubu.com/v3/document_image/11391915_55d2fab7-637d-4c20-bb55-1f2e0aecbe7c.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span>
-                        <span class="voice-tag">基础套餐</span>
-                        <span class="voice-handle">2025 届</span>
-                        <span class="voice-name">市场营销 · 本科</span>
-                    </div>
-                    <div class="voice-shot" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" loading="lazy" alt="聊天记录截图" src="https://api2.mubu.com/v3/document_image/11391915_539e2f12-f72d-453e-9ff2-8e2ee6ac8d39.jpg?x-tos-process=image/resize,w_800" onerror="this.parentNode.style.display='none'"></div>
-                </figure>
-<figure class="voice-card">
-                    <div class="voice-head">
-                        <span class="voice-avatar" data-in="郑" style="background:#c2185b;"><img src="https://api2.mubu.com/v3/document_image/11391915_04b8f337-f235-4024-ee3e-ce6992c9534c.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span>
-                        <span class="voice-tag">答辩预测</span>
-                        <span class="voice-handle">2026 届</span>
-                        <span class="voice-name">通信工程 · 本科</span>
-                    </div>
-                    <div class="voice-shot" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" loading="lazy" alt="聊天记录截图" src="https://api2.mubu.com/v3/document_image/11391915_a9cdcf61-feb3-4cce-b042-1f8de272e902.jpg?x-tos-process=image/resize,w_800" onerror="this.parentNode.style.display='none'"></div>
-                </figure>
-<figure class="voice-card">
-                    <div class="voice-head">
-                        <span class="voice-avatar" data-in="何" style="background:#00695c;"><img src="https://api2.mubu.com/v3/document_image/11391915_25334867-0bb3-4bce-c381-63f8556281ce.png?x-tos-process=image/resize,w_480" alt="学员头像" referrerpolicy="no-referrer" loading="lazy" onerror="var p=this.parentNode;this.remove();p.textContent=p.dataset.in;"></span>
-                        <span class="voice-tag">全包套餐</span>
-                        <span class="voice-handle">2025 届</span>
-                        <span class="voice-name">金融学 · 硕士</span>
-                    </div>
-                    <div class="voice-shot" onclick="openLightbox(this)"><img referrerpolicy="no-referrer" loading="lazy" alt="聊天记录截图" src="https://api2.mubu.com/v3/document_image/11391915_cf849c84-8b2b-48eb-bbfd-d6ef97d3c1ba.jpg?x-tos-process=image/resize,w_800" onerror="this.parentNode.style.display='none'"></div>
-                </figure>
+            <div class="subject-bar fade-up" role="tablist" aria-label="学科分类">
+<button class="subject-card active" data-subject="gongxue" type="button" role="tab" aria-selected="true">工学<span class="subject-count">3 篇</span></button>
+<button class="subject-card" data-subject="jingjixue" type="button" role="tab" aria-selected="false">经济学<span class="subject-count">3 篇</span></button>
+<button class="subject-card" data-subject="faxue" type="button" role="tab" aria-selected="false">法学<span class="subject-count">1 篇</span></button>
+<button class="subject-card" data-subject="jiaoyuxue" type="button" role="tab" aria-selected="false">教育学<span class="subject-count">1 篇</span></button>
+<button class="subject-card" data-subject="wenxue" type="button" role="tab" aria-selected="false">文学<span class="subject-count">2 篇</span></button>
+<button class="subject-card" data-subject="lishixue" type="button" role="tab" aria-selected="false">历史学<span class="subject-count">1 篇</span></button>
+<button class="subject-card" data-subject="lixue" type="button" role="tab" aria-selected="false">理学<span class="subject-count">1 篇</span></button>
+<button class="subject-card" data-subject="yixue" type="button" role="tab" aria-selected="false">医学<span class="subject-count">1 篇</span></button>
             </div>
-            <!-- 发布前请将以下示例文案替换为本店真实学员反馈（保留脱敏格式：专业 · 学历 · 届别）。 -->
+            <div class="thesis-panels fade-up">
+<div class="thesis-panel active" data-panel="gongxue">
+                    <div class="sub-bar" role="tablist" aria-label="工学分类">
+<button class="sub-card active" data-sub="jisuanji" type="button" role="tab" aria-selected="true">计算机类<span class="sub-count">1 篇</span></button>
+<button class="sub-card" data-sub="jixie" type="button" role="tab" aria-selected="false">机械类<span class="sub-count">1 篇</span></button>
+<button class="sub-card" data-sub="dianzi" type="button" role="tab" aria-selected="false">电子信息类<span class="sub-count">1 篇</span></button>
+                    </div>
+                    <div class="sub-panels">
+                        <div class="sub-panel active" data-sub="jisuanji">
+                            <div class="thesis-paper-bar">
+                                <span class="thesis-title-chip">《基于微服务架构的远程看护与健康监测系统设计》</span>
+                                                                <span class="thesis-chip">生理参数实时监测</span>
+                                <span class="thesis-chip">CNN-BiLSTM-Attention 预测</span>
+<span class="thesis-chip">Nginx 动态权值</span>
+                            </div>
+                            <div class="thesis-rail-head">
+                                <div class="thesis-rail-title"><strong>数据图精选 · 10 页</strong></div>
+                                <div class="thesis-rail-hint">拖动浏览 · 点击页面放大</div>
+                                <div class="thesis-rail-btns">
+                                    <button class="thesis-rail-btn" type="button" aria-label="向左浏览">‹</button>
+                                    <button class="thesis-rail-btn" type="button" aria-label="向右浏览">›</button>
+                                </div>
+                            </div>
+                            <div class="thesis-rail">
+<figure class="thesis-page" data-label="图2.11 · 预测对比" onclick="openThesisPage(0)"><img src="images/thesis-pages/springcloud/fig-01.jpg?v=2" alt="图2.11 TCN、Transformer 与 CNN-BiLSTM-Attention 预测结果对比图" loading="eager" decoding="async"><figcaption>图2.11 · 预测对比</figcaption></figure>
+<figure class="thesis-page" data-label="表2.2 · 误差指标" onclick="openThesisPage(1)"><img src="images/thesis-pages/springcloud/fig-02.jpg?v=2" alt="表2.2 六种模型 MAE 与 RMSE 误差对比表" loading="eager" decoding="async"><figcaption>表2.2 · 误差指标</figcaption></figure>
+<figure class="thesis-page" data-label="图3.7 · 并发响应" onclick="openThesisPage(2)"><img src="images/thesis-pages/springcloud/fig-03.jpg?v=2" alt="图3.7 请求并发数与平均响应时间折线图" loading="lazy" decoding="async"><figcaption>图3.7 · 并发响应</figcaption></figure>
+<figure class="thesis-page" data-label="表3.10 · 极限并发" onclick="openThesisPage(3)"><img src="images/thesis-pages/springcloud/fig-04.jpg?v=2" alt="表3.10 高并发下三种负载均衡算法最大响应时间数据" loading="lazy" decoding="async"><figcaption>表3.10 · 极限并发</figcaption></figure>
+<figure class="thesis-page" data-label="图4.9 · 数据库拆分" onclick="openThesisPage(4)"><img src="images/thesis-pages/springcloud/fig-05.jpg?v=2" alt="图4.9 数据库划分示意图" loading="lazy" decoding="async"><figcaption>图4.9 · 数据库拆分</figcaption></figure>
+<figure class="thesis-page" data-label="图4.12 · 集群流程" onclick="openThesisPage(5)"><img src="images/thesis-pages/springcloud/fig-06.jpg?v=2" alt="图4.11 Sentinel 操作中心与图4.12 Spring Cloud 集群工作流程示意图" loading="lazy" decoding="async"><figcaption>图4.12 · 集群流程</figcaption></figure>
+<figure class="thesis-page" data-label="图4.14 · 微服务模块" onclick="openThesisPage(6)"><img src="images/thesis-pages/springcloud/fig-07.jpg?v=2" alt="图4.14 Spring Cloud 功能模块划分示意图" loading="lazy" decoding="async"><figcaption>图4.14 · 微服务模块</figcaption></figure>
+<figure class="thesis-page" data-label="图5.4/5.5 · 护士端" onclick="openThesisPage(7)"><img src="images/thesis-pages/springcloud/fig-08.jpg?v=2" alt="图5.4 护士登录主界面与图5.5 监控及护理床控制界面" loading="lazy" decoding="async"><figcaption>图5.4/5.5 · 护士端</figcaption></figure>
+<figure class="thesis-page" data-label="图5.8 · 生理监护" onclick="openThesisPage(8)"><img src="images/thesis-pages/springcloud/fig-09.jpg?v=2" alt="图5.8 生理参数实时监控演示与图5.9 医生登录主界面" loading="lazy" decoding="async"><figcaption>图5.8 · 生理监护</figcaption></figure>
+<figure class="thesis-page" data-label="表5.8 · 压测数据" onclick="openThesisPage(9)"><img src="images/thesis-pages/springcloud/fig-10.jpg?v=2" alt="表5.8 与图5.15 设备查找功能并发用户数压测数据" loading="lazy" decoding="async"><figcaption>表5.8 · 压测数据</figcaption></figure>
+                            </div>
+                        </div>
+<div class="sub-panel" data-sub="jixie">
+                            <div class="thesis-paper-bar">
+                                <span class="thesis-title-chip">《面向复合制造的PLC增减材协同控制方案设计》</span>
+                                                                <span class="thesis-chip">西门子 828D + S7-1200</span>
+                                <span class="thesis-chip">PROFINET 协同控制</span>
+<span class="thesis-chip">增材刀路仿真</span>
+                            </div>
+                            <div class="thesis-rail-head">
+                                <div class="thesis-rail-title"><strong>数据图精选 · 10 页</strong></div>
+                                <div class="thesis-rail-hint">拖动浏览 · 点击页面放大</div>
+                                <div class="thesis-rail-btns">
+                                    <button class="thesis-rail-btn" type="button" aria-label="向左浏览">‹</button>
+                                    <button class="thesis-rail-btn" type="button" aria-label="向右浏览">›</button>
+                                </div>
+                            </div>
+                            <div class="thesis-rail">
+<figure class="thesis-page" data-label="摘要 · 研究成果" onclick="openThesisPage(0)"><img src="images/thesis-pages/plc/fig-01.jpg?v=3" alt="论文摘要：激光增减材控制系统三大研究成果" loading="eager" decoding="async"><figcaption>摘要 · 研究成果</figcaption></figure>
+<figure class="thesis-page" data-label="目录 · 65页全本" onclick="openThesisPage(1)"><img src="images/thesis-pages/plc/fig-02.jpg?v=3" alt="论文目录：五章结构与参考文献框架" loading="eager" decoding="async"><figcaption>目录 · 65页全本</figcaption></figure>
+<figure class="thesis-page" data-label="绪论 · 研究背景" onclick="openThesisPage(2)"><img src="images/thesis-pages/plc/fig-03.jpg?v=3" alt="第一章绪论：课题研究背景与意义" loading="lazy" decoding="async"><figcaption>绪论 · 研究背景</figcaption></figure>
+<figure class="thesis-page" data-label="图1-1/1-2 · 国内外装备" onclick="openThesisPage(3)"><img src="images/thesis-pages/plc/fig-04.jpg?v=3" alt="图1-1与图1-2 国内外增减材复合加工装备及样件" loading="lazy" decoding="async"><figcaption>图1-1/1-2 · 国内外装备</figcaption></figure>
+<figure class="thesis-page" data-label="图2-1 · DED原理" onclick="openThesisPage(4)"><img src="images/thesis-pages/plc/fig-05.jpg?v=3" alt="图2-1 送粉式激光定向能量沉积原理图" loading="lazy" decoding="async"><figcaption>图2-1 · DED原理</figcaption></figure>
+<figure class="thesis-page" data-label="图2-4 · 系统拓扑" onclick="openThesisPage(5)"><img src="images/thesis-pages/plc/fig-06.jpg?v=3" alt="图2-4 激光增减材控制系统拓扑图" loading="lazy" decoding="async"><figcaption>图2-4 · 系统拓扑</figcaption></figure>
+<figure class="thesis-page" data-label="表4-1 · 刀路策略" onclick="openThesisPage(6)"><img src="images/thesis-pages/plc/fig-07.jpg?v=3" alt="表4-1 底壁铣削增材刀路策略与开关光动作示例" loading="lazy" decoding="async"><figcaption>表4-1 · 刀路策略</figcaption></figure>
+<figure class="thesis-page" data-label="图3-16/3-17 · 梯形图" onclick="openThesisPage(7)"><img src="images/thesis-pages/plc/fig-08.jpg?v=3" alt="图3-16与图3-17 激光功率设置与出光控制梯形图程序" loading="lazy" decoding="async"><figcaption>图3-16/3-17 · 梯形图</figcaption></figure>
+<figure class="thesis-page" data-label="图4-2 · 后处理插件" onclick="openThesisPage(8)"><img src="images/thesis-pages/plc/fig-09.jpg?v=3" alt="图4-2 NX后处理构造器制作入口界面" loading="lazy" decoding="async"><figcaption>图4-2 · 后处理插件</figcaption></figure>
+<figure class="thesis-page" data-label="图5-4/5-5 · 加工验证" onclick="openThesisPage(9)"><img src="images/thesis-pages/plc/fig-10.jpg?v=3" alt="图5-4 增材NC程序路径模拟与图5-5 多道多层加工实物" loading="lazy" decoding="async"><figcaption>图5-4/5-5 · 加工验证</figcaption></figure>
+                            </div>
+                        </div>
+<div class="sub-panel" data-sub="dianzi">
+                            <div class="thesis-paper-bar">
+                                <span class="thesis-title-chip">《面向地震监测的低功耗卫星授时单元设计》</span>
+<span class="thesis-chip">STM32L4 超低功耗</span>
+<span class="thesis-chip">卫星 1PPS × 温度补偿</span>
+<span class="thesis-chip">授时 10μs · 功耗 ≤90mW</span>
+                            </div>
+                            <div class="thesis-rail-head">
+                                <div class="thesis-rail-title"><strong>核心章节 · 8 页</strong></div>
+                                <div class="thesis-rail-hint">拖动浏览 · 点击页面放大</div>
+                                <div class="thesis-rail-btns">
+                                    <button class="thesis-rail-btn" type="button" aria-label="向左浏览">‹</button>
+                                    <button class="thesis-rail-btn" type="button" aria-label="向右浏览">›</button>
+                                </div>
+                            </div>
+                            <div class="thesis-rail">
+<figure class="thesis-page" data-label="摘要 · 研究发现" onclick="openThesisPage(0)"><img src="images/thesis-pages/shoushi/fig-01.jpg?v=1" alt="论文摘要：卫星1PPS校准本地时钟与温度补偿的低功耗授时方案" loading="eager" decoding="async"><figcaption>摘要 · 研究发现</figcaption></figure>
+<figure class="thesis-page" data-label="目录 · 73页全本" onclick="openThesisPage(1)"><img src="images/thesis-pages/shoushi/fig-02.jpg?v=1" alt="论文目录：授时原理、硬件电路、软件设计与系统测试六章结构" loading="eager" decoding="async"><figcaption>目录 · 73页全本</figcaption></figure>
+<figure class="thesis-page" data-label="绪论 · 研究背景" onclick="openThesisPage(2)"><img src="images/thesis-pages/shoushi/fig-03.jpg?v=1" alt="第一章绪论：地震监测对低功耗高精度授时的需求背景" loading="lazy" decoding="async"><figcaption>绪论 · 研究背景</figcaption></figure>
+<figure class="thesis-page" data-label="表2-1 · 授时技术对比" onclick="openThesisPage(3)"><img src="images/thesis-pages/shoushi/fig-04.jpg?v=1" alt="表2-1：广播授时、石英晶振、卫星授时与网络授时四类技术对比表" loading="lazy" decoding="async"><figcaption>表2-1 · 授时技术对比</figcaption></figure>
+<figure class="thesis-page" data-label="图3-2 · 系统构成" onclick="openThesisPage(4)"><img src="images/thesis-pages/shoushi/fig-05.jpg?v=1" alt="图3-2：GNSS信号输入、钟差测量修正与温度补偿的时间服务系统构成框图" loading="lazy" decoding="async"><figcaption>图3-2 · 系统构成</figcaption></figure>
+<figure class="thesis-page" data-label="图3-20 · PCB设计" onclick="openThesisPage(5)"><img src="images/thesis-pages/shoushi/fig-06.jpg?v=1" alt="图3-20：低功耗授时单元PCB布局设计图" loading="lazy" decoding="async"><figcaption>图3-20 · PCB设计</figcaption></figure>
+<figure class="thesis-page" data-label="测试 · 工具与PPS" onclick="openThesisPage(6)"><img src="images/thesis-pages/shoushi/fig-07.jpg?v=1" alt="第五章：测试调试工具展示与PPS信号输入捕获示波器波形" loading="lazy" decoding="async"><figcaption>测试 · 工具与PPS</figcaption></figure>
+<figure class="thesis-page" data-label="输出 · 1PPS对比" onclick="openThesisPage(7)"><img src="images/thesis-pages/shoushi/fig-08.jpg?v=1" alt="图5-5唤醒测试电流图与图5-6授时输出与GNSS的1PPS信号对比" loading="lazy" decoding="async"><figcaption>输出 · 1PPS对比</figcaption></figure>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<div class="thesis-panel" data-panel="jingjixue">
+                    <div class="sub-bar" role="tablist" aria-label="经济学分类">
+<button class="sub-card active" data-sub="jinrong" type="button" role="tab" aria-selected="true">金融学<span class="sub-count">1 篇</span></button>
+<button class="sub-card" data-sub="kuaiji" type="button" role="tab" aria-selected="false">会计与审计<span class="sub-count">1 篇</span></button>
+<button class="sub-card" data-sub="guomao" type="button" role="tab" aria-selected="false">国际经济与贸易<span class="sub-count">1 篇</span></button>
+                    </div>
+                    <div class="sub-panels">
+<div class="sub-panel active" data-sub="jinrong">
+                            <div class="thesis-paper-bar">
+                                <span class="thesis-title-chip">《基于GARCH-VaR模型的低空经济板块风险度量》</span>
+<span class="thesis-chip">2018-2024 日度数据</span>
+<span class="thesis-chip">GARCH-VaR 回测</span>
+<span class="thesis-chip">低空经济板块</span>
+                            </div>
+                            <div class="thesis-rail-head">
+                                <div class="thesis-rail-title"><strong>数据图精选 · 8 页</strong></div>
+                                <div class="thesis-rail-hint">拖动浏览 · 点击页面放大</div>
+                                <div class="thesis-rail-btns">
+                                    <button class="thesis-rail-btn" type="button" aria-label="向左浏览">‹</button>
+                                    <button class="thesis-rail-btn" type="button" aria-label="向右浏览">›</button>
+                                </div>
+                            </div>
+                            <div class="thesis-rail">
+<figure class="thesis-page" data-label="样本与变量" onclick="openThesisPage(0)"><img src="images/thesis-pages/garch/fig-01.jpg?v=2" alt="低空经济板块样本区间与变量说明" loading="eager" decoding="async"><figcaption>样本与变量</figcaption></figure>
+<figure class="thesis-page" data-label="表4-1 · 变量定义" onclick="openThesisPage(1)"><img src="images/thesis-pages/garch/fig-02.jpg?v=2" alt="表4-1 变量定义与数据说明" loading="eager" decoding="async"><figcaption>表4-1 · 变量定义</figcaption></figure>
+<figure class="thesis-page" data-label="图4-1 · 累计收益率" onclick="openThesisPage(2)"><img src="images/thesis-pages/garch/fig-03.jpg?v=2" alt="图4-1 累计收益率对比" loading="lazy" decoding="async"><figcaption>图4-1 · 累计收益率</figcaption></figure>
+<figure class="thesis-page" data-label="表4-2 · 描述性统计" onclick="openThesisPage(3)"><img src="images/thesis-pages/garch/fig-04.jpg?v=2" alt="表4-2 收益率描述性统计结果" loading="lazy" decoding="async"><figcaption>表4-2 · 描述性统计</figcaption></figure>
+<figure class="thesis-page" data-label="表4-3/4-4 · 风险指标" onclick="openThesisPage(4)"><img src="images/thesis-pages/garch/fig-05.jpg?v=2" alt="表4-3 风险指标对比分析与表4-4 ADF单位根检验" loading="lazy" decoding="async"><figcaption>表4-3/4-4 · 风险指标</figcaption></figure>
+<figure class="thesis-page" data-label="表4-5 · GARCH估计" onclick="openThesisPage(5)"><img src="images/thesis-pages/garch/fig-06.jpg?v=2" alt="表4-5 低空经济板块GARCH(1,1)模型估计结果" loading="lazy" decoding="async"><figcaption>表4-5 · GARCH估计</figcaption></figure>
+<figure class="thesis-page" data-label="图4-2 · 条件波动率" onclick="openThesisPage(6)"><img src="images/thesis-pages/garch/fig-07.jpg?v=2" alt="图4-2 条件波动率动态图" loading="lazy" decoding="async"><figcaption>图4-2 · 条件波动率</figcaption></figure>
+<figure class="thesis-page" data-label="图4-3 · VaR回测" onclick="openThesisPage(7)"><img src="images/thesis-pages/garch/fig-08.jpg?v=2" alt="图4-3 VaR风险边界与实际收益图" loading="lazy" decoding="async"><figcaption>图4-3 · VaR回测</figcaption></figure>
+                            </div>
+                        </div>
+<div class="sub-panel" data-sub="kuaiji">
+                            <div class="thesis-paper-bar">
+                                <span class="thesis-title-chip">《绿色EVA视角下的企业财务绩效评价体系构建》</span>
+<span class="thesis-chip">宝钢股份 2019-2023</span>
+<span class="thesis-chip">绿色 EVA 调整值</span>
+<span class="thesis-chip">沃尔比重评分法</span>
+                            </div>
+                            <div class="thesis-rail-head">
+                                <div class="thesis-rail-title"><strong>数据图精选 · 8 页</strong></div>
+                                <div class="thesis-rail-hint">拖动浏览 · 点击页面放大</div>
+                                <div class="thesis-rail-btns">
+                                    <button class="thesis-rail-btn" type="button" aria-label="向左浏览">‹</button>
+                                    <button class="thesis-rail-btn" type="button" aria-label="向右浏览">›</button>
+                                </div>
+                            </div>
+                            <div class="thesis-rail">
+<figure class="thesis-page" data-label="摘要 · 研究发现" onclick="openThesisPage(0)"><img src="images/thesis-pages/jiaze/fig-01.jpg?v=2" alt="论文摘要：绿色EVA视角下宝钢股份财务绩效研究发现" loading="eager" decoding="async"><figcaption>摘要 · 研究发现</figcaption></figure>
+<figure class="thesis-page" data-label="目录 · 62页全本" onclick="openThesisPage(1)"><img src="images/thesis-pages/jiaze/fig-02.jpg?v=2" alt="论文目录：六章结构与绿色EVA评价体系框架" loading="eager" decoding="async"><figcaption>目录 · 62页全本</figcaption></figure>
+<figure class="thesis-page" data-label="绪论 · 研究背景" onclick="openThesisPage(2)"><img src="images/thesis-pages/jiaze/fig-03.jpg?v=2" alt="第一章绪论：绿色低碳转型研究背景与意义" loading="lazy" decoding="async"><figcaption>绪论 · 研究背景</figcaption></figure>
+<figure class="thesis-page" data-label="表3.3 · 环保投入" onclick="openThesisPage(3)"><img src="images/thesis-pages/jiaze/fig-04.jpg?v=2" alt="表3.3宝钢2019-2023环保支出表与三折线图" loading="lazy" decoding="async"><figcaption>表3.3 · 环保投入</figcaption></figure>
+<figure class="thesis-page" data-label="表3.4 · 盈利对比" onclick="openThesisPage(4)"><img src="images/thesis-pages/jiaze/fig-05.jpg?v=2" alt="表3.4宝钢盈利指标与行业均值对比及每股收益折线图" loading="lazy" decoding="async"><figcaption>表3.4 · 盈利对比</figcaption></figure>
+<figure class="thesis-page" data-label="表5.8 · EVA调整值" onclick="openThesisPage(5)"><img src="images/thesis-pages/jiaze/fig-06.jpg?v=2" alt="表5.8宝钢2019-2023绿色EVA调整值计算表" loading="lazy" decoding="async"><figcaption>表5.8 · EVA调整值</figcaption></figure>
+<figure class="thesis-page" data-label="图5.3 · 绿色EVA" onclick="openThesisPage(6)"><img src="images/thesis-pages/jiaze/fig-07.jpg?v=2" alt="图5.3 2019-2023年传统EVA与绿色EVA变化对比图" loading="lazy" decoding="async"><figcaption>图5.3 · 绿色EVA</figcaption></figure>
+<figure class="thesis-page" data-label="结论 · 三大优势" onclick="openThesisPage(7)"><img src="images/thesis-pages/jiaze/fig-08.jpg?v=2" alt="第六章研究结论：绿色EVA体系三大优势" loading="lazy" decoding="async"><figcaption>结论 · 三大优势</figcaption></figure>
+                            </div>
+                        </div>
+<div class="sub-panel" data-sub="guomao">
+                            <div class="thesis-paper-bar">
+                                <span class="thesis-title-chip">《RCEP框架下机电产品出口竞争力的提升路径研究》</span>
+<span class="thesis-chip">2010-2020 时间序列</span>
+<span class="thesis-chip">关税 + 技术壁垒变量</span>
+<span class="thesis-chip">RCA 显性比较优势</span>
+                            </div>
+                            <div class="thesis-rail-head">
+                                <div class="thesis-rail-title"><strong>数据图精选 · 8 页</strong></div>
+                                <div class="thesis-rail-hint">拖动浏览 · 点击页面放大</div>
+                                <div class="thesis-rail-btns">
+                                    <button class="thesis-rail-btn" type="button" aria-label="向左浏览">‹</button>
+                                    <button class="thesis-rail-btn" type="button" aria-label="向右浏览">›</button>
+                                </div>
+                            </div>
+                            <div class="thesis-rail">
+<figure class="thesis-page" data-label="摘要 · 五大结论" onclick="openThesisPage(0)"><img src="images/thesis-pages/rcep/fig-01.jpg?v=2" alt="论文摘要：RCEP背景下广东机电产品竞争力五大结论" loading="eager" decoding="async"><figcaption>摘要 · 五大结论</figcaption></figure>
+<figure class="thesis-page" data-label="目录 · 53页全本" onclick="openThesisPage(1)"><img src="images/thesis-pages/rcep/fig-02.jpg?v=2" alt="论文目录：五章结构与RCEP竞争力研究框架" loading="eager" decoding="async"><figcaption>目录 · 53页全本</figcaption></figure>
+<figure class="thesis-page" data-label="导论 · RCEP背景" onclick="openThesisPage(2)"><img src="images/thesis-pages/rcep/fig-03.jpg?v=2" alt="第一章导论：RCEP生效为广东机电行业带来机遇与挑战" loading="lazy" decoding="async"><figcaption>导论 · RCEP背景</figcaption></figure>
+<figure class="thesis-page" data-label="图2.1 · 进出口额" onclick="openThesisPage(3)"><img src="images/thesis-pages/rcep/fig-04.jpg?v=2" alt="图2.1 广东机电产品2000-2020进出口额柱状图" loading="lazy" decoding="async"><figcaption>图2.1 · 进出口额</figcaption></figure>
+<figure class="thesis-page" data-label="表2.3 · 市场占有" onclick="openThesisPage(4)"><img src="images/thesis-pages/rcep/fig-05.jpg?v=2" alt="表2.3 2017-2022广东机电产品国际市场占有率" loading="lazy" decoding="async"><figcaption>表2.3 · 市场占有</figcaption></figure>
+<figure class="thesis-page" data-label="表2.8 · RCA指数" onclick="openThesisPage(5)"><img src="images/thesis-pages/rcep/fig-06.jpg?v=2" alt="表2.8 广东省机电产品显示性比较优势指数RCA" loading="lazy" decoding="async"><figcaption>表2.8 · RCA指数</figcaption></figure>
+<figure class="thesis-page" data-label="表4.5 · 回归结果" onclick="openThesisPage(6)"><img src="images/thesis-pages/rcep/fig-07.jpg?v=2" alt="表4.5 Robust回归分析结果：各变量影响系数与显著性" loading="lazy" decoding="async"><figcaption>表4.5 · 回归结果</figcaption></figure>
+<figure class="thesis-page" data-label="对策 · 五条路径" onclick="openThesisPage(7)"><img src="images/thesis-pages/rcep/fig-08.jpg?v=2" alt="第五章对策建议：深入研究RCEP协定积极谋划适应性布局" loading="lazy" decoding="async"><figcaption>对策 · 五条路径</figcaption></figure>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<div class="thesis-panel" data-panel="faxue">
+                            <div class="thesis-paper-bar">
+                                <span class="thesis-title-chip">《网络诽谤行为的法律治理与制度完善研究》</span>
+<span class="thesis-chip">英美法系 vs 大陆法系</span>
+<span class="thesis-chip">杭州取快递诽谤案</span>
+<span class="thesis-chip">自诉转公诉机制</span>
+                            </div>
+                            <div class="thesis-rail-head">
+                                <div class="thesis-rail-title"><strong>核心章节 · 8 页</strong></div>
+                                <div class="thesis-rail-hint">拖动浏览 · 点击页面放大</div>
+                                <div class="thesis-rail-btns">
+                                    <button class="thesis-rail-btn" type="button" aria-label="向左浏览">‹</button>
+                                    <button class="thesis-rail-btn" type="button" aria-label="向右浏览">›</button>
+                                </div>
+                            </div>
+                            <div class="thesis-rail">
+<figure class="thesis-page" data-label="摘要 · 研究发现" onclick="openThesisPage(0)"><img src="images/thesis-pages/faxue/fig-01.jpg?v=2" alt="论文摘要：网络诽谤犯罪法律规制现状问题与优化建议" loading="eager" decoding="async"><figcaption>摘要 · 研究发现</figcaption></figure>
+<figure class="thesis-page" data-label="目录 · 39页全本" onclick="openThesisPage(1)"><img src="images/thesis-pages/faxue/fig-02.jpg?v=2" alt="论文目录：引言与四章结构从犯罪概述到优化路径" loading="eager" decoding="async"><figcaption>目录 · 39页全本</figcaption></figure>
+<figure class="thesis-page" data-label="引言 · 研究缘起" onclick="openThesisPage(2)"><img src="images/thesis-pages/faxue/fig-03.jpg?v=2" alt="引言：杭州女子取快递被诽谤案与研究现状述评" loading="eager" decoding="async"><figcaption>引言 · 研究缘起</figcaption></figure>
+<figure class="thesis-page" data-label="第一章 · 犯罪概述" onclick="openThesisPage(3)"><img src="images/thesis-pages/faxue/fig-04.jpg?v=2" alt="第一章：网络诽谤犯罪的概念特征与三种行为方式" loading="lazy" decoding="async"><figcaption>第一章 · 犯罪概述</figcaption></figure>
+<figure class="thesis-page" data-label="第二章 · 规制现状" onclick="openThesisPage(4)"><img src="images/thesis-pages/faxue/fig-05.jpg?v=2" alt="第二章：网络诽谤犯罪法律规制现状与现存问题" loading="lazy" decoding="async"><figcaption>第二章 · 规制现状</figcaption></figure>
+<figure class="thesis-page" data-label="第三章 · 域外借鉴" onclick="openThesisPage(5)"><img src="images/thesis-pages/faxue/fig-06.jpg?v=2" alt="第三章：英美法系与大陆法系网络诽谤犯罪法律规制比较" loading="lazy" decoding="async"><figcaption>第三章 · 域外借鉴</figcaption></figure>
+<figure class="thesis-page" data-label="第四章 · 优化路径" onclick="openThesisPage(6)"><img src="images/thesis-pages/faxue/fig-07.jpg?v=2" alt="第四章：实体法程序法与司法解释三层面优化路径" loading="lazy" decoding="async"><figcaption>第四章 · 优化路径</figcaption></figure>
+<figure class="thesis-page" data-label="结语 · 研究展望" onclick="openThesisPage(7)"><img src="images/thesis-pages/faxue/fig-08.jpg?v=2" alt="结语：构建行之有效的网络诽谤犯罪法律规制体系" loading="lazy" decoding="async"><figcaption>结语 · 研究展望</figcaption></figure>
+                            </div>
+                        </div>
+<div class="thesis-panel" data-panel="jiaoyuxue">
+                            <div class="thesis-paper-bar">
+                                <span class="thesis-title-chip">《基于逆向设计的初中数学单元整体教学行动研究》</span>
+<span class="thesis-chip">UbD 逆向教学设计</span>
+<span class="thesis-chip">一元二次方程大单元</span>
+<span class="thesis-chip">前后测 t 检验</span>
+                            </div>
+                            <div class="thesis-rail-head">
+                                <div class="thesis-rail-title"><strong>数据图精选 · 8 页</strong></div>
+                                <div class="thesis-rail-hint">拖动浏览 · 点击页面放大</div>
+                                <div class="thesis-rail-btns">
+                                    <button class="thesis-rail-btn" type="button" aria-label="向左浏览">‹</button>
+                                    <button class="thesis-rail-btn" type="button" aria-label="向右浏览">›</button>
+                                </div>
+                            </div>
+                            <div class="thesis-rail">
+<figure class="thesis-page" data-label="摘要 · 研究发现" onclick="openThesisPage(0)"><img src="images/thesis-pages/jiaoyuxue/fig-01.jpg?v=2" alt="论文摘要：逆向教学理论融入初中数学大单元教学的研究发现" loading="eager" decoding="async"><figcaption>摘要 · 研究发现</figcaption></figure>
+<figure class="thesis-page" data-label="目录 · 115页全本" onclick="openThesisPage(1)"><img src="images/thesis-pages/jiaoyuxue/fig-02.jpg?v=2" alt="论文目录：六章结构从现状调查到实证检验" loading="eager" decoding="async"><figcaption>目录 · 115页全本</figcaption></figure>
+<figure class="thesis-page" data-label="图1.1 · 研究思路" onclick="openThesisPage(2)"><img src="images/thesis-pages/jiaoyuxue/fig-03.jpg?v=2" alt="图1-1 研究思路：理论建构到实践转化的技术路线" loading="lazy" decoding="async"><figcaption>图1.1 · 研究思路</figcaption></figure>
+<figure class="thesis-page" data-label="表3.1 · 逆向设计模型" onclick="openThesisPage(3)"><img src="images/thesis-pages/jiaoyuxue/fig-04.jpg?v=2" alt="表3-1 核心素养导向的逆向教学设计模型三阶段" loading="lazy" decoding="async"><figcaption>表3.1 · 逆向设计模型</figcaption></figure>
+<figure class="thesis-page" data-label="图3.2 · 大单元模型" onclick="openThesisPage(4)"><img src="images/thesis-pages/jiaoyuxue/fig-05.jpg?v=2" alt="图3-2 逆向教学理论指导下的大单元教学设计模型" loading="lazy" decoding="async"><figcaption>图3.2 · 大单元模型</figcaption></figure>
+<figure class="thesis-page" data-label="图3.3 · 知识层级" onclick="openThesisPage(5)"><img src="images/thesis-pages/jiaoyuxue/fig-06.jpg?v=2" alt="图3-3知识层级模型与图3-4知识优先级模型" loading="lazy" decoding="async"><figcaption>图3.3 · 知识层级</figcaption></figure>
+<figure class="thesis-page" data-label="图5.1 · 前测对比" onclick="openThesisPage(6)"><img src="images/thesis-pages/jiaoyuxue/fig-07.jpg?v=2" alt="图5-1实验班对照班前测成绩对比t检验无显著差异" loading="lazy" decoding="async"><figcaption>图5.1 · 前测对比</figcaption></figure>
+<figure class="thesis-page" data-label="图5.2 · 后测t检验" onclick="openThesisPage(7)"><img src="images/thesis-pages/jiaoyuxue/fig-08.jpg?v=2" alt="图5-2后测成绩对比实验组显著优于对照组p小于0.05" loading="lazy" decoding="async"><figcaption>图5.2 · 后测t检验</figcaption></figure>
+                            </div>
+                        </div>
+<div class="thesis-panel" data-panel="wenxue">
+                    <div class="sub-bar" role="tablist" aria-label="文学分类">
+<button class="sub-card active" data-sub="xiandangdai" type="button" role="tab" aria-selected="true">现当代文学<span class="sub-count">1 篇</span></button>
+<button class="sub-card" data-sub="gudian" type="button" role="tab" aria-selected="false">古典小说<span class="sub-count">1 篇</span></button>
+                    </div>
+                    <div class="sub-panels">
+                        <div class="sub-panel active" data-sub="xiandangdai">
+                            <div class="thesis-paper-bar">
+                                <span class="thesis-title-chip">《苏童与曼斯菲尔德小说的阴性书写比较研究》</span>
+<span class="thesis-chip">《妻妾成群》×《序曲》</span>
+<span class="thesis-chip">叙事内容 · 语言 · 技巧</span>
+<span class="thesis-chip">双视角 vs 多重聚焦</span>
+                            </div>
+                            <div class="thesis-rail-head">
+                                <div class="thesis-rail-title"><strong>核心章节 · 8 页</strong></div>
+                                <div class="thesis-rail-hint">拖动浏览 · 点击页面放大</div>
+                                <div class="thesis-rail-btns">
+                                    <button class="thesis-rail-btn" type="button" aria-label="向左浏览">‹</button>
+                                    <button class="thesis-rail-btn" type="button" aria-label="向右浏览">›</button>
+                                </div>
+                            </div>
+                            <div class="thesis-rail">
+<figure class="thesis-page" data-label="摘要 · 研究发现" onclick="openThesisPage(0)"><img src="images/thesis-pages/wenxue/fig-01.jpg?v=2" alt="中文摘要：苏童与曼斯菲尔德阴性书写比较研究发现" loading="eager" decoding="async"><figcaption>摘要 · 研究发现</figcaption></figure>
+<figure class="thesis-page" data-label="目录 · 53页全本" onclick="openThesisPage(1)"><img src="images/thesis-pages/wenxue/fig-02.jpg?v=2" alt="论文目录：四章结构从研究背景到结论展望" loading="eager" decoding="async"><figcaption>目录 · 53页全本</figcaption></figure>
+<figure class="thesis-page" data-label="绪论 · 研究背景" onclick="openThesisPage(2)"><img src="images/thesis-pages/wenxue/fig-03.jpg?v=2" alt="第一章绪论：研究背景与叙事学理论框架" loading="lazy" decoding="async"><figcaption>绪论 · 研究背景</figcaption></figure>
+<figure class="thesis-page" data-label="第二章 · 阴性书写" onclick="openThesisPage(3)"><img src="images/thesis-pages/wenxue/fig-04.jpg?v=2" alt="第二章：两部小说叙事内容中的阴性书写分析" loading="lazy" decoding="async"><figcaption>第二章 · 阴性书写</figcaption></figure>
+<figure class="thesis-page" data-label="身体与欲望书写" onclick="openThesisPage(4)"><img src="images/thesis-pages/wenxue/fig-05.jpg?v=2" alt="第二章：身体与欲望书写及序曲叙事内容分析" loading="lazy" decoding="async"><figcaption>身体与欲望书写</figcaption></figure>
+<figure class="thesis-page" data-label="第三章 · 异同比较" onclick="openThesisPage(5)"><img src="images/thesis-pages/wenxue/fig-06.jpg?v=2" alt="第三章：两部小说阴性书写的异同比较" loading="lazy" decoding="async"><figcaption>第三章 · 异同比较</figcaption></figure>
+<figure class="thesis-page" data-label="视角差异分析" onclick="openThesisPage(6)"><img src="images/thesis-pages/wenxue/fig-07.jpg?v=2" alt="第三章：妻妾成群双视角与序曲多重聚焦的视角差异" loading="lazy" decoding="async"><figcaption>视角差异分析</figcaption></figure>
+<figure class="thesis-page" data-label="第四章 · 结论展望" onclick="openThesisPage(7)"><img src="images/thesis-pages/wenxue/fig-08.jpg?v=2" alt="第四章结论：叙事学三维度阴性书写与作家经历成因" loading="lazy" decoding="async"><figcaption>第四章 · 结论展望</figcaption></figure>
+                            </div>
+                        </div>
+<div class="sub-panel" data-sub="gudian">
+                            <div class="thesis-paper-bar">
+                                <span class="thesis-title-chip">《志怪文学的动画重述研究——以〈聊斋志异〉为例》</span>
+<span class="thesis-chip">泥人张 × 滩头年画</span>
+<span class="thesis-chip">AIGC 辅助造型</span>
+<span class="thesis-chip">定格 × 三维融合</span>
+                            </div>
+                            <div class="thesis-rail-head">
+                                <div class="thesis-rail-title"><strong>核心章节 · 9 页</strong></div>
+                                <div class="thesis-rail-hint">拖动浏览 · 点击页面放大</div>
+                                <div class="thesis-rail-btns">
+                                    <button class="thesis-rail-btn" type="button" aria-label="向左浏览">‹</button>
+                                    <button class="thesis-rail-btn" type="button" aria-label="向右浏览">›</button>
+                                </div>
+                            </div>
+                            <div class="thesis-rail">
+<figure class="thesis-page" data-label="摘要 · 研究发现" onclick="openThesisPage(0)"><img src="images/thesis-pages/liaozhai/fig-01.jpg?v=1" alt="中文摘要：聊斋志异神话世界逻辑与动画重述创新研究发现" loading="eager" decoding="async"><figcaption>摘要 · 研究发现</figcaption></figure>
+<figure class="thesis-page" data-label="目录 · 97页全本" onclick="openThesisPage(1)"><img src="images/thesis-pages/liaozhai/fig-02.jpg?v=1" alt="论文目录：神话世界建构、动画叙事创新与宅妖创作实践等章节结构" loading="eager" decoding="async"><figcaption>目录 · 97页全本</figcaption></figure>
+<figure class="thesis-page" data-label="绪论 · 研究背景" onclick="openThesisPage(2)"><img src="images/thesis-pages/liaozhai/fig-03.jpg?v=1" alt="第一章绪论：建国后聊斋动画改编历程与国内外研究现状" loading="lazy" decoding="async"><figcaption>绪论 · 研究背景</figcaption></figure>
+<figure class="thesis-page" data-label="表3-1 · 动画梳理" onclick="openThesisPage(3)"><img src="images/thesis-pages/liaozhai/fig-04.jpg?v=1" alt="表3-1：建国后改编自聊斋志异的动画作品梳理（1959至2023）" loading="lazy" decoding="async"><figcaption>表3-1 · 动画梳理</figcaption></figure>
+<figure class="thesis-page" data-label="第四章 · 角色设定" onclick="openThesisPage(4)"><img src="images/thesis-pages/liaozhai/fig-05.jpg?v=1" alt="第四章：宅妖动画短片神话重述与角色设计清单" loading="lazy" decoding="async"><figcaption>第四章 · 角色设定</figcaption></figure>
+<figure class="thesis-page" data-label="图4-10 · 老鼠角色" onclick="openThesisPage(5)"><img src="images/thesis-pages/liaozhai/fig-06.jpg?v=1" alt="图4-10：六只拟人老鼠角色设计与羊毛毡工艺质感" loading="lazy" decoding="async"><figcaption>图4-10 · 老鼠角色</figcaption></figure>
+<figure class="thesis-page" data-label="图4-11 · 骨架制作" onclick="openThesisPage(6)"><img src="images/thesis-pages/liaozhai/fig-07.jpg?v=1" alt="图4-11：定格动画老鼠铝丝骨架制作与羊毛填充过程" loading="lazy" decoding="async"><figcaption>图4-11 · 骨架制作</figcaption></figure>
+<figure class="thesis-page" data-label="概念设计 · 海报" onclick="openThesisPage(7)"><img src="images/thesis-pages/liaozhai/fig-08.jpg?v=1" alt="宅妖动画概念设计板：故事梗概、鼠妖角色设计与场景设定" loading="lazy" decoding="async"><figcaption>概念设计 · 海报</figcaption></figure>
+<figure class="thesis-page" data-label="影片 · 截图精选" onclick="openThesisPage(8)"><img src="images/thesis-pages/liaozhai/fig-09.jpg?v=1" alt="宅妖动画影片截图：鼠妖娶亲仪仗队与灵猫对峙画面" loading="lazy" decoding="async"><figcaption>影片 · 截图精选</figcaption></figure>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+<div class="thesis-panel" data-panel="lishixue">
+                            <div class="thesis-paper-bar">
+                                <span class="thesis-title-chip">《汉魏六朝诗赋里的西域风物书写探析》</span>
+<span class="thesis-chip">天山 · 昆仑 · 楼兰</span>
+<span class="thesis-chip">山川 · 物产 · 风俗</span>
+<span class="thesis-chip">文史互证</span>
+                            </div>
+                            <div class="thesis-rail-head">
+                                <div class="thesis-rail-title"><strong>核心章节 · 9 页</strong></div>
+                                <div class="thesis-rail-hint">拖动浏览 · 点击页面放大</div>
+                                <div class="thesis-rail-btns">
+                                    <button class="thesis-rail-btn" type="button" aria-label="向左浏览">‹</button>
+                                    <button class="thesis-rail-btn" type="button" aria-label="向右浏览">›</button>
+                                </div>
+                            </div>
+                            <div class="thesis-rail">
+<figure class="thesis-page" data-label="摘要 · 研究框架" onclick="openThesisPage(0)"><img src="images/thesis-pages/weijin/fig-01.jpg?v=1" alt="中文摘要：魏晋南北朝诗赋西域书写的渊源题材主题与价值研究框架" loading="eager" decoding="async"><figcaption>摘要 · 研究框架</figcaption></figure>
+<figure class="thesis-page" data-label="目录 · 全本结构" onclick="openThesisPage(1)"><img src="images/thesis-pages/weijin/fig-02.jpg?v=1" alt="论文目录：溯源背景、题材内容、主题特点、价值影响四章与附录辑表" loading="eager" decoding="async"><figcaption>目录 · 全本结构</figcaption></figure>
+<figure class="thesis-page" data-label="绪论 · 研究综述" onclick="openThesisPage(2)"><img src="images/thesis-pages/weijin/fig-03.jpg?v=1" alt="绪论：西域书写研究综述、研究意义与研究方法" loading="lazy" decoding="async"><figcaption>绪论 · 研究综述</figcaption></figure>
+<figure class="thesis-page" data-label="第一章 · 溯源背景" onclick="openThesisPage(3)"><img src="images/thesis-pages/weijin/fig-04.jpg?v=1" alt="第一章：先秦两汉西域记载与魏晋南北朝西域认知溯源" loading="lazy" decoding="async"><figcaption>第一章 · 溯源背景</figcaption></figure>
+<figure class="thesis-page" data-label="第二章 · 山川物产" onclick="openThesisPage(4)"><img src="images/thesis-pages/weijin/fig-05.jpg?v=1" alt="第二章：西域山川地理与丰饶物产——天山昆仑、葡萄石榴与天马鹦鹉" loading="lazy" decoding="async"><figcaption>第二章 · 山川物产</figcaption></figure>
+<figure class="thesis-page" data-label="第三章 · 主题特点" onclick="openThesisPage(5)"><img src="images/thesis-pages/weijin/fig-06.jpg?v=1" alt="第三章：建功立业、闺怨情思、主体意识与游仙四大主题书写" loading="lazy" decoding="async"><figcaption>第三章 · 主题特点</figcaption></figure>
+<figure class="thesis-page" data-label="第四章 · 价值影响" onclick="openThesisPage(6)"><img src="images/thesis-pages/weijin/fig-07.jpg?v=1" alt="第四章：西域书写的文学价值与对唐代诗赋西域书写的影响" loading="lazy" decoding="async"><figcaption>第四章 · 价值影响</figcaption></figure>
+<figure class="thesis-page" data-label="结语 · 研究总结" onclick="openThesisPage(7)"><img src="images/thesis-pages/weijin/fig-08.jpg?v=1" alt="结语：多元文化背景下中原与西域文化交融互鉴研究总结" loading="lazy" decoding="async"><figcaption>结语 · 研究总结</figcaption></figure>
+<figure class="thesis-page" data-label="附录 · 作品辑表" onclick="openThesisPage(8)"><img src="images/thesis-pages/weijin/fig-09.jpg?v=1" alt="附录一：魏晋南北朝诗歌中涉及西域书写主要作品辑表" loading="lazy" decoding="async"><figcaption>附录 · 作品辑表</figcaption></figure>
+                            </div>
+                        </div>
+<div class="thesis-panel" data-panel="lixue">
+                            <div class="thesis-paper-bar">
+                                <span class="thesis-title-chip">《修正KMV框架下新能源车企信用风险的实证评价》</span>
+<span class="thesis-chip">北汽蓝谷 2019-2023</span>
+<span class="thesis-chip">GARCH 修正波动率</span>
+<span class="thesis-chip">违约距离 DD 对比</span>
+                            </div>
+                            <div class="thesis-rail-head">
+                                <div class="thesis-rail-title"><strong>数据图精选 · 8 页</strong></div>
+                                <div class="thesis-rail-hint">拖动浏览 · 点击页面放大</div>
+                                <div class="thesis-rail-btns">
+                                    <button class="thesis-rail-btn" type="button" aria-label="向左浏览">‹</button>
+                                    <button class="thesis-rail-btn" type="button" aria-label="向右浏览">›</button>
+                                </div>
+                            </div>
+                            <div class="thesis-rail">
+<figure class="thesis-page" data-label="摘要 · 研究发现" onclick="openThesisPage(0)"><img src="images/thesis-pages/kmv/fig-01.jpg?v=2" alt="论文摘要：GARCH-KMV模型量化北汽蓝谷信用风险研究发现" loading="eager" decoding="async"><figcaption>摘要 · 研究发现</figcaption></figure>
+<figure class="thesis-page" data-label="目录 · 52页全本" onclick="openThesisPage(1)"><img src="images/thesis-pages/kmv/fig-02.jpg?v=2" alt="论文目录：七章结构与KMV信用风险度量框架" loading="eager" decoding="async"><figcaption>目录 · 52页全本</figcaption></figure>
+<figure class="thesis-page" data-label="绪论 · 研究背景" onclick="openThesisPage(2)"><img src="images/thesis-pages/kmv/fig-03.jpg?v=2" alt="第一章绪论：新能源汽车补贴退坡与信用风险研究背景" loading="lazy" decoding="async"><figcaption>绪论 · 研究背景</figcaption></figure>
+<figure class="thesis-page" data-label="表4.3 · 资产负债" onclick="openThesisPage(3)"><img src="images/thesis-pages/kmv/fig-04.jpg?v=2" alt="表4.3 北汽蓝谷2018-2023年资产负债表" loading="lazy" decoding="async"><figcaption>表4.3 · 资产负债</figcaption></figure>
+<figure class="thesis-page" data-label="表4.4 · 经营销售" onclick="openThesisPage(4)"><img src="images/thesis-pages/kmv/fig-05.jpg?v=2" alt="表4.4与表4.5 北汽蓝谷营业情况与销量情况表" loading="lazy" decoding="async"><figcaption>表4.4 · 经营销售</figcaption></figure>
+<figure class="thesis-page" data-label="表5.3 · 波动率" onclick="openThesisPage(5)"><img src="images/thesis-pages/kmv/fig-06.jpg?v=2" alt="表5.3 样本公司2019-2023股权波动率GARCH计算结果" loading="lazy" decoding="async"><figcaption>表5.3 · 波动率</figcaption></figure>
+<figure class="thesis-page" data-label="表5.8 · KMV结果" onclick="openThesisPage(6)"><img src="images/thesis-pages/kmv/fig-07.jpg?v=2" alt="表5.8 七家车企违约距离DD与违约概率EDF计算结果" loading="lazy" decoding="async"><figcaption>表5.8 · KMV结果</figcaption></figure>
+<figure class="thesis-page" data-label="结论 · 四条建议" onclick="openThesisPage(7)"><img src="images/thesis-pages/kmv/fig-08.jpg?v=2" alt="第七章研究结论：国企与私企信用风险对比及四条风险控制建议" loading="lazy" decoding="async"><figcaption>结论 · 四条建议</figcaption></figure>
+                            </div>
+                        </div>
+<div class="thesis-panel" data-panel="yixue">
+                    <div class="thesis-paper-bar">
+                                <span class="thesis-title-chip">《实习护生人文执业能力的现状调查与提升对策》</span>
+<span class="thesis-chip">横断面调查</span>
+<span class="thesis-chip">量性 + 质性混合</span>
+<span class="thesis-chip">多元回归分析</span>
+                            </div>
+                            <div class="thesis-rail-head">
+                                <div class="thesis-rail-title"><strong>数据图精选 · 8 页</strong></div>
+                                <div class="thesis-rail-hint">拖动浏览 · 点击页面放大</div>
+                                <div class="thesis-rail-btns">
+                                    <button class="thesis-rail-btn" type="button" aria-label="向左浏览">‹</button>
+                                    <button class="thesis-rail-btn" type="button" aria-label="向右浏览">›</button>
+                                </div>
+                            </div>
+                            <div class="thesis-rail">
+<figure class="thesis-page" data-label="图1/2 · 框架与路线" onclick="openThesisPage(0)"><img src="images/thesis-pages/nursing/fig-01.jpg?v=2" alt="图1 概念框架与图2 技术路线" loading="eager" decoding="async"><figcaption>图1/2 · 框架与路线</figcaption></figure>
+<figure class="thesis-page" data-label="表1 · 人口学资料" onclick="openThesisPage(1)"><img src="images/thesis-pages/nursing/fig-02.jpg?v=2" alt="表1 人口学资料（n=1487）" loading="eager" decoding="async"><figcaption>表1 · 人口学资料</figcaption></figure>
+<figure class="thesis-page" data-label="表2 · 能力得分" onclick="openThesisPage(2)"><img src="images/thesis-pages/nursing/fig-03.jpg?v=2" alt="表2 护理实习生人文执业能力得分" loading="lazy" decoding="async"><figcaption>表2 · 能力得分</figcaption></figure>
+<figure class="thesis-page" data-label="表3 · 组间比较一" onclick="openThesisPage(3)"><img src="images/thesis-pages/nursing/fig-04.jpg?v=2" alt="表3 不同人口学特征得分比较（续表1）" loading="lazy" decoding="async"><figcaption>表3 · 组间比较一</figcaption></figure>
+<figure class="thesis-page" data-label="表3 · 组间比较二" onclick="openThesisPage(4)"><img src="images/thesis-pages/nursing/fig-05.jpg?v=2" alt="表3 不同人口学特征得分比较（续表2）" loading="lazy" decoding="async"><figcaption>表3 · 组间比较二</figcaption></figure>
+<figure class="thesis-page" data-label="表4/5 · 效能相关" onclick="openThesisPage(5)"><img src="images/thesis-pages/nursing/fig-06.jpg?v=2" alt="表4 职业自我效能感与表5 相关分析" loading="lazy" decoding="async"><figcaption>表4/5 · 效能相关</figcaption></figure>
+<figure class="thesis-page" data-label="表7 · 逐步回归" onclick="openThesisPage(6)"><img src="images/thesis-pages/nursing/fig-07.jpg?v=2" alt="表7 人文执业能力影响因素逐步回归分析" loading="lazy" decoding="async"><figcaption>表7 · 逐步回归</figcaption></figure>
+<figure class="thesis-page" data-label="表10 · 培训考核" onclick="openThesisPage(7)"><img src="images/thesis-pages/nursing/fig-08.jpg?v=2" alt="表10 护理实习生人文执业能力培训考核安排" loading="lazy" decoding="async"><figcaption>表10 · 培训考核</figcaption></figure>
+                            </div>
+                </div>
+            </div>
+            <!-- 五篇作品页图：images/thesis-pages/{springcloud,garch,jiaze,rcep,nursing}/fig-NN.jpg，源文件与原 PDF 页码映射见各篇导出脚本；脱敏处理=封面/声明/致谢页不取+校徽/页眉校名/知网水印抹除。新增论文：重导 fig-NN.jpg + 更新图注/页数/data-pages -->
+
         </div>
     </section>
+
+    <!-- Thesis fullscreen viewer -->
+    <div class="thesis-viewer" id="thesisViewer" data-pages="43" role="dialog" aria-modal="true" aria-label="论文放大预览" aria-hidden="true">
+        <button class="thesis-viewer-btn t-prev" type="button" aria-label="上一页">‹</button>
+        <div class="thesis-viewer-stage">
+            <img id="thesisViewerImg" alt="论文放大页" decoding="async">
+            <span class="thesis-viewer-count" id="thesisViewerCount">1 / 43</span>
+            <span class="thesis-viewer-tip">← → 翻页 · Esc 关闭</span>
+        </div>
+        <button class="thesis-viewer-btn t-next" type="button" aria-label="下一页">›</button>
+        <button class="thesis-viewer-btn t-close thesis-viewer-close" type="button" aria-label="关闭">×</button>
+    </div>
 
     <!-- Lightbox -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
@@ -1939,7 +2412,7 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
     const animObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
-                var delay = entry.target.closest('.collage-grid') ? index * 50 : index * 120;
+                var delay = entry.target.closest('.collage-grid') ? index * 50 : entry.target.closest('.thesis-rail') ? index * 36 : index * 120;
                 setTimeout(() => {
                     entry.target.classList.add('animate-in');
                 }, delay);
@@ -1950,7 +2423,7 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
 
     document.querySelectorAll(
         '.service-icon, .service-card h3, .service-card p, ' +
-        '.collage-box, .ppt-card, .showcase-card, .price-card, .step, .qr-box, .contact-row-item, .process-steps'
+        '.collage-box, .ppt-card, .showcase-card, .thesis-page, .price-card, .step, .qr-box, .contact-row-item, .process-steps'
     ).forEach(el => {
         animObserver.observe(el);
     });
@@ -1962,7 +2435,7 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
             if (el.getBoundingClientRect().top < window.innerHeight + 100) el.classList.add('visible');
         });
         document.querySelectorAll('.service-icon, .service-card h3, .service-card p, ' +
-            '.collage-box, .ppt-card, .showcase-card, .price-card, .step, .qr-box, .contact-row-item'
+            '.collage-box, .ppt-card, .showcase-card, .thesis-page, .price-card, .step, .qr-box, .contact-row-item'
         ).forEach(el => {
             if (el.getBoundingClientRect().top < window.innerHeight + 100) el.classList.add('animate-in');
         });
@@ -2210,6 +2683,150 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
         });
     })();
 
+
+    // ─── 论文轨道：按钮翻动 + 鼠标/触屏拖动 ───
+    (function() {
+        function bindRail(rail) {
+            var btns = rail.parentNode.querySelectorAll('.thesis-rail-btn');
+            function step() { return Math.max(240, rail.clientWidth * .72); }
+            if (btns[0]) btns[0].addEventListener('click', function() { rail.scrollBy({ left: -step(), behavior: 'smooth' }); });
+            if (btns[1]) btns[1].addEventListener('click', function() { rail.scrollBy({ left: step(), behavior: 'smooth' }); });
+            rail.querySelectorAll('img').forEach(function(img) { img.draggable = false; });
+            rail.addEventListener('dragstart', function(e) { e.preventDefault(); });
+        }
+        document.querySelectorAll('.thesis-rail').forEach(bindRail);
+
+        // 触屏交给浏览器原生横向滚动；鼠标使用统一的文档级拖动，所有学科行为一致。
+        var drag = null, suppressClickRail = null, suppressTimer = null;
+        document.addEventListener('pointerdown', function(e) {
+            var rail = e.target.closest && e.target.closest('.thesis-rail');
+            if (!rail || e.pointerType !== 'mouse' || e.button !== 0) return;
+            var panel = rail.closest('.thesis-panel');
+            var subPanel = rail.closest('.sub-panel');
+            if (!panel || !panel.classList.contains('active')) return;
+            // Engineering/economics have a nested subject panel; other disciplines
+            // place their rail directly in the active thesis panel.
+            if (subPanel && !subPanel.classList.contains('active')) return;
+            drag = { rail: rail, pointerId: e.pointerId, startX: e.clientX, startY: e.clientY, startLeft: rail.scrollLeft, moved: 0, axis: null };
+            if (suppressTimer) clearTimeout(suppressTimer);
+            suppressClickRail = null;
+        }, true);
+        document.addEventListener('pointermove', function(e) {
+            if (!drag || e.pointerId !== drag.pointerId) return;
+            var dx = e.clientX - drag.startX;
+            var dy = e.clientY - drag.startY;
+            if (!drag.axis && Math.max(Math.abs(dx), Math.abs(dy)) >= 6) {
+                drag.axis = Math.abs(dx) >= Math.abs(dy) ? 'x' : 'y';
+            }
+            if (drag.axis !== 'x') return;
+            drag.moved = Math.max(drag.moved, Math.abs(dx));
+            drag.rail.classList.add('grabbing');
+            drag.rail.scrollLeft = drag.startLeft - dx;
+            if (e.cancelable) e.preventDefault();
+        }, { capture: true, passive: false });
+        function finishDrag(e) {
+            if (!drag || (e && e.pointerId !== drag.pointerId)) return;
+            var finished = drag;
+            drag = null;
+            finished.rail.classList.remove('grabbing');
+            if (finished.axis === 'x' && finished.moved > 8) {
+                suppressClickRail = finished.rail;
+                suppressTimer = setTimeout(function() { suppressClickRail = null; }, 0);
+            }
+        }
+        document.addEventListener('pointerup', finishDrag, true);
+        document.addEventListener('pointercancel', finishDrag, true);
+        document.addEventListener('click', function(e) {
+            if (!suppressClickRail || !e.target.closest || e.target.closest('.thesis-rail') !== suppressClickRail) return;
+            e.preventDefault();
+            e.stopPropagation();
+            suppressClickRail = null;
+        }, true);
+    })();
+
+    // ─── 学科/子分类两级切换 ───
+    window.activateSubject = function(key) {
+        document.querySelectorAll('.subject-card').forEach(function(c) {
+            var on = c.dataset.subject === key;
+            c.classList.toggle('active', on);
+            c.setAttribute('aria-selected', String(on));
+        });
+        document.querySelectorAll('.thesis-panel').forEach(function(p) {
+            p.classList.toggle('active', p.dataset.panel === key);
+        });
+        var panel = document.querySelector('.thesis-panel.active');
+        if (panel && panel.querySelector('.sub-card') && !panel.querySelector('.sub-card.active')) {
+            activateSub(panel.querySelector('.sub-card').dataset.sub);
+        }
+    };
+    window.activateSub = function(key) {
+        var panel = document.querySelector('.thesis-panel.active');
+        if (!panel) return;
+        panel.querySelectorAll('.sub-card').forEach(function(c) {
+            var on = c.dataset.sub === key;
+            c.classList.toggle('active', on);
+            c.setAttribute('aria-selected', String(on));
+        });
+        panel.querySelectorAll('.sub-panel').forEach(function(p) {
+            p.classList.toggle('active', p.dataset.sub === key);
+        });
+    };
+    document.querySelectorAll('.subject-card').forEach(function(card) {
+        card.addEventListener('click', function() { activateSubject(card.dataset.subject); });
+    });
+    document.querySelectorAll('.sub-card').forEach(function(card) {
+        card.addEventListener('click', function() { activateSub(card.dataset.sub); });
+    });
+
+    // ─── 论文放大阅读器（读取当前学科面板内的页卡） ───
+    (function() {
+        var viewer = document.getElementById('thesisViewer');
+        if (!viewer) return;
+        var pageWrap = document.getElementById('fullpage');
+        var img = document.getElementById('thesisViewerImg');
+        var counter = document.getElementById('thesisViewerCount');
+        var pages = [], page = 0;
+        function collect() {
+            pages = [];
+            document.querySelectorAll('.thesis-panel.active .thesis-page').forEach(function(fig) {
+                var sp = fig.closest('.sub-panel');
+                if (sp && !sp.classList.contains('active')) return;
+                pages.push({ src: fig.querySelector('img').getAttribute('src'), label: fig.dataset.label || '' });
+            });
+        }
+        function render() {
+            var item = pages[page];
+            img.src = item.src;
+            counter.textContent = (page + 1) + ' / ' + pages.length + (item.label ? ' · ' + item.label : '');
+        }
+        function openPage(pageIndex) {
+            collect();
+            if (!pages.length) return;
+            page = pageIndex;
+            render();
+            viewer.classList.add('open');
+            viewer.setAttribute('aria-hidden', 'false');
+            pageWrap.style.overflow = 'hidden';
+        }
+        function closeViewer() {
+            if (!viewer.classList.contains('open')) return;
+            viewer.classList.remove('open');
+            viewer.setAttribute('aria-hidden', 'true');
+            pageWrap.style.overflow = '';
+        }
+        window.openThesisPage = openPage;
+        viewer.querySelector('.t-prev').addEventListener('click', function() { page = (page + pages.length - 1) % pages.length; render(); });
+        viewer.querySelector('.t-next').addEventListener('click', function() { page = (page + 1) % pages.length; render(); });
+        viewer.querySelector('.t-close').addEventListener('click', closeViewer);
+        viewer.addEventListener('click', function(e) { if (e.target === viewer) closeViewer(); });
+        document.addEventListener('keydown', function(e) {
+            if (!viewer.classList.contains('open')) return;
+            if (e.key === 'Escape') closeViewer();
+            else if (e.key === 'ArrowLeft') { page = (page + pages.length - 1) % pages.length; render(); }
+            else if (e.key === 'ArrowRight') { page = (page + 1) % pages.length; render(); }
+        });
+        viewer.addEventListener('contextmenu', function(e) { if (e.target === img) e.preventDefault(); });
+    })();
     </script>
 </body>
 </html>
