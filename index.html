@@ -620,6 +620,11 @@
             transition: opacity 0.78s ease, transform 0.78s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         .collage-box.animate-in, .ppt-card.animate-in, .showcase-card.animate-in, .thesis-page.animate-in { opacity: 1; transform: scale(1); }
+        /* QA/截图：?noanim=1 跳过全部入场动画强制全显 */
+        html.no-anim * { transition: none !important; animation: none !important; }
+        html.no-anim .fade-up, html.no-anim .collage-box, html.no-anim .ppt-card, html.no-anim .showcase-card,
+        html.no-anim .thesis-page, html.no-anim .price-card, html.no-anim .step, html.no-anim .qr-box,
+        html.no-anim .service-card, html.no-anim .service-card h3, html.no-anim .service-card p { opacity: 1 !important; transform: none !important; }
 
         .price-card {
             opacity: 0; transform: translateY(40px);
@@ -978,6 +983,7 @@
         .thesis-rail.grabbing { cursor: grabbing; scroll-snap-type: none; scroll-behavior: auto; user-select: none; }
         .thesis-rail.grabbing .thesis-page { transform: none !important; }
         .thesis-page img { -webkit-user-drag: none; user-select: none; }
+        .thesis-rail.rail-ppt { --page-w: clamp(230px, 36vh, 390px); }
         .thesis-page {
             position: relative; flex: 0 0 var(--page-w); overflow: hidden; margin: 0;
             border: 1px solid #dfeafa; border-radius: 10px; background: #fff;
@@ -1046,6 +1052,7 @@
             .subject-card .subject-count { font-size: 10px; }
             .subject-empty { min-height: 180px; }
             .thesis-rail { --page-w: 56vw; gap: 10px; }
+            .thesis-rail.rail-ppt { --page-w: 78vw; }
             .thesis-viewer { grid-template-columns: 40px minmax(0,1fr) 40px; gap: 6px; padding: 10px; }
             .thesis-viewer-stage { height: calc(100vh - 20px); }
             .thesis-viewer-stage img { max-height: calc(100vh - 68px); }
@@ -1762,7 +1769,7 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
             <div class="thesis-head fade-up">
                 <div class="label">WORKS</div>
                 <h2>论文作品库，点开学科就翻</h2>
-                <p>真实交付的脱敏论文，已收录 13 篇；点任意一页放大翻看。</p>
+                <p>真实交付的脱敏论文 13 篇 + 毕业答辩 PPT 1 套；点任意一页放大翻看。</p>
             </div>
             <div class="subject-bar fade-up" role="tablist" aria-label="学科分类">
 <button class="subject-card active" data-subject="gongxue" type="button" role="tab" aria-selected="true">工学<span class="subject-count">3 篇</span></button>
@@ -1773,6 +1780,7 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
 <button class="subject-card" data-subject="lishixue" type="button" role="tab" aria-selected="false">历史学<span class="subject-count">1 篇</span></button>
 <button class="subject-card" data-subject="lixue" type="button" role="tab" aria-selected="false">理学<span class="subject-count">1 篇</span></button>
 <button class="subject-card" data-subject="yixue" type="button" role="tab" aria-selected="false">医学<span class="subject-count">1 篇</span></button>
+<button class="subject-card" data-subject="ppt" type="button" role="tab" aria-selected="false">PPT<span class="subject-count">1 套</span></button>
             </div>
             <div class="thesis-panels fade-up">
 <div class="thesis-panel active" data-panel="gongxue">
@@ -2143,6 +2151,36 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
 <figure class="thesis-page" data-label="表4/5 · 效能相关" onclick="openThesisPage(5)"><img src="https://api2.mubu.com/v3/document_image/11391915_2e05bd36-20e5-4b67-8e87-540407eed21d.jpg?x-tos-process=image/resize,w_480" alt="表4 职业自我效能感与表5 相关分析" loading="lazy" decoding="async"><figcaption>表4/5 · 效能相关</figcaption></figure>
 <figure class="thesis-page" data-label="表7 · 逐步回归" onclick="openThesisPage(6)"><img src="https://api2.mubu.com/v3/document_image/11391915_52218aa1-41a1-4556-90cb-28c05558db09.jpg?x-tos-process=image/resize,w_480" alt="表7 人文执业能力影响因素逐步回归分析" loading="lazy" decoding="async"><figcaption>表7 · 逐步回归</figcaption></figure>
 <figure class="thesis-page" data-label="表10 · 培训考核" onclick="openThesisPage(7)"><img src="https://api2.mubu.com/v3/document_image/11391915_0d1c5bdb-f540-4b20-9d4e-d804e80cfa9b.jpg?x-tos-process=image/resize,w_480" alt="表10 护理实习生人文执业能力培训考核安排" loading="lazy" decoding="async"><figcaption>表10 · 培训考核</figcaption></figure>
+                            </div>
+                </div>
+<div class="thesis-panel" data-panel="ppt">
+                    <div class="thesis-paper-bar">
+                                <span class="thesis-title-chip">《基于神经协同过滤的个性化电影推荐系统设计与实现》 · 毕业答辩PPT</span>
+<span class="thesis-chip">神经协同过滤 NeuMF</span>
+<span class="thesis-chip">三模型对比选型</span>
+<span class="thesis-chip">HR@10 = 0.7033</span>
+<span class="thesis-chip">真机演示</span>
+                            </div>
+                            <div class="thesis-rail-head">
+                                <div class="thesis-rail-title"><strong>答辩全篇 · 11 页</strong></div>
+                                <div class="thesis-rail-hint">拖动浏览 · 点击页面放大</div>
+                                <div class="thesis-rail-btns">
+                                    <button class="thesis-rail-btn" type="button" aria-label="向左浏览">‹</button>
+                                    <button class="thesis-rail-btn" type="button" aria-label="向右浏览">›</button>
+                                </div>
+                            </div>
+                            <div class="thesis-rail rail-ppt">
+<figure class="thesis-page" data-label="封面 · 课题与答辩人" onclick="openThesisPage(0)"><img src="https://api2.mubu.com/v3/document_image/11391915_246eb5be-5b8e-4940-92dd-1d02a8042692.png?x-tos-process=image/resize,w_780" alt="答辩封面：基于神经协同过滤的个性化电影推荐系统设计与实现" loading="eager" decoding="async"><figcaption>封面 · 课题与答辩人</figcaption></figure>
+<figure class="thesis-page" data-label="目录 · CONTENT" onclick="openThesisPage(1)"><img src="https://api2.mubu.com/v3/document_image/11391915_72f934f9-2a38-42fd-8bb6-31e28d764d52.png?x-tos-process=image/resize,w_780" alt="答辩目录：选题背景与意义、系统设计与模型实现、综合分析与总结展望" loading="eager" decoding="async"><figcaption>目录 · CONTENT</figcaption></figure>
+<figure class="thesis-page" data-label="背景 · 研究意义" onclick="openThesisPage(2)"><img src="https://api2.mubu.com/v3/document_image/11391915_0c0ccde9-0b48-4e2d-fdc2-d559ddae392c.png?x-tos-process=image/resize,w_780" alt="选题背景与意义：个性化推荐系统研究价值与系统设计亮点" loading="eager" decoding="async"><figcaption>背景 · 研究意义</figcaption></figure>
+<figure class="thesis-page" data-label="需求 · 个性化挑战" onclick="openThesisPage(3)"><img src="https://api2.mubu.com/v3/document_image/11391915_df013505-009b-4fe8-ca0e-9a396a229bac.png?x-tos-process=image/resize,w_780" alt="个性化推荐的需求与挑战：影视内容总量增长与推荐系统痛点" loading="lazy" decoding="async"><figcaption>需求 · 个性化挑战</figcaption></figure>
+<figure class="thesis-page" data-label="机制 · NeuMF模型" onclick="openThesisPage(4)"><img src="https://api2.mubu.com/v3/document_image/11391915_618c2c54-17c5-47d8-fbe5-d44c6129d053.png?x-tos-process=image/resize,w_780" alt="神经协同过滤核心机制：NeuMF模型结构与Top-N推荐流程" loading="lazy" decoding="async"><figcaption>机制 · NeuMF模型</figcaption></figure>
+<figure class="thesis-page" data-label="架构 · 四大模块" onclick="openThesisPage(5)"><img src="https://api2.mubu.com/v3/document_image/11391915_2038172d-1d54-44d2-9599-93e58598cfc5.png?x-tos-process=image/resize,w_780" alt="模块与算法设计：数据处理、模型训练、推荐服务与前端展示四模块架构" loading="lazy" decoding="async"><figcaption>架构 · 四大模块</figcaption></figure>
+<figure class="thesis-page" data-label="框架 · GMF+MLP" onclick="openThesisPage(6)"><img src="https://api2.mubu.com/v3/document_image/11391915_e39cc9cb-c3f1-4763-ffb2-fad8f85ffe18.png?x-tos-process=image/resize,w_780" alt="NCF框架：He Xiangnan等WWW 2017提出，GMF与MLP双网络结构" loading="lazy" decoding="async"><figcaption>框架 · GMF+MLP</figcaption></figure>
+<figure class="thesis-page" data-label="实机 · 环境工具链" onclick="openThesisPage(7)"><img src="https://api2.mubu.com/v3/document_image/11391915_d2b12c70-1413-47b0-c95d-83e29c987c53.png?x-tos-process=image/resize,w_780" alt="实机环境、数据集与工具链：系统运行截图与训练界面" loading="lazy" decoding="async"><figcaption>实机 · 环境工具链</figcaption></figure>
+<figure class="thesis-page" data-label="实验 · HR@10=0.7033" onclick="openThesisPage(8)"><img src="https://api2.mubu.com/v3/document_image/11391915_d23922fd-c02b-406e-ac7b-cb743d90b68a.png?x-tos-process=image/resize,w_780" alt="实验结果与能力收获：三模型训练损失对比，GMF HR@10=0.7033" loading="lazy" decoding="async"><figcaption>实验 · HR@10=0.7033</figcaption></figure>
+<figure class="thesis-page" data-label="聚焦 · 三方面工作" onclick="openThesisPage(9)"><img src="https://api2.mubu.com/v3/document_image/11391915_ce48c3dd-4588-47e8-e9df-ed14c3ef5f15.png?x-tos-process=image/resize,w_780" alt="NCF推荐聚焦方向：模型层复现NeuMF、系统层推荐服务、总结展望" loading="lazy" decoding="async"><figcaption>聚焦 · 三方面工作</figcaption></figure>
+<figure class="thesis-page" data-label="致谢 · 答辩收尾" onclick="openThesisPage(10)"><img src="https://api2.mubu.com/v3/document_image/11391915_80cab429-2fd3-4783-886e-e32ee28978f3.png?x-tos-process=image/resize,w_780" alt="恳请老师的批评与指正：毕业设计答辩汇报收尾" loading="lazy" decoding="async"><figcaption>致谢 · 答辩收尾</figcaption></figure>
                             </div>
                 </div>
             </div>
@@ -2774,6 +2812,12 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
     document.querySelectorAll('.subject-card').forEach(function(card) {
         card.addEventListener('click', function() { activateSubject(card.dataset.subject); });
     });
+    // 深链：?subject=ppt 直开对应学科栏；?noanim=1 跳过入场动画（QA截图用）
+    (function() {
+        var m = location.search.match(/[?&]subject=([\w-]+)/);
+        if (m && document.querySelector('.subject-card[data-subject="' + m[1] + '"]')) activateSubject(m[1]);
+        if (/[?&]noanim=1/.test(location.search)) document.documentElement.classList.add('no-anim');
+    })();
     document.querySelectorAll('.sub-card').forEach(function(card) {
         card.addEventListener('click', function() { activateSub(card.dataset.sub); });
     });
@@ -2791,7 +2835,10 @@ print(f"Best R²: {gbr.best_score_:.4f}")</code></div>
             document.querySelectorAll('.thesis-panel.active .thesis-page').forEach(function(fig) {
                 var sp = fig.closest('.sub-panel');
                 if (sp && !sp.classList.contains('active')) return;
-                pages.push({ src: fig.querySelector('img').getAttribute('src'), label: fig.dataset.label || '' });
+                var src = fig.querySelector('img').getAttribute('src');
+                // 放大时取高清原图（幕布 x-tos-process 只缩不放，老图返回原尺寸不受影响）
+                src = src.replace(/resize,w_\d+/, 'resize,w_2880');
+                pages.push({ src: src, label: fig.dataset.label || '' });
             });
         }
         function render() {
